@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./pages/user/LoginPage";
+import Root from "./pages/layout/Root";
+import HomePage from "./pages/HomePage";
+import RegisterPage from "./pages/user/RegisterPage";
+import CampaignsListPage from "./pages/campaign/CampaignsListPage";
+import CampaignDetailPage from "./pages/campaign/CampaignDetailPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <Root />,
+		children: [
+			{
+				index: true,
+				element: <HomePage />,
+			},
+			{
+				path: "/signin",
+				element: <LoginPage />,
+			},
+			{
+				path: "/signup",
+				element: <RegisterPage />,
+			},
+			{
+				path: "/signout",
+				element: <LoginPage />,
+			},
+			{
+				path: "/campaign/:id",
+				element: <CampaignDetailPage />,
+			},
+			{
+				path: "/campaign",
+				element: <CampaignsListPage />,
+			},
+			{
+				path: "/",
+				element: <HomePage />,
+			},
+		],
+	},
+]);
+
+const App = () => {
+	return <RouterProvider router={router} />;
+};
 
 export default App;
