@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import DatePickerField from "../../components/shared/DatePickerField";
+import DatePickerField from "../shared/DatePickerField";
 import axiosInstance from "../../utils/axiosInstance";
 
 export default function CampaignCreate() {

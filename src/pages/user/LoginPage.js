@@ -1,17 +1,24 @@
 import { Box, Input } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signInUser } from "../../store";
+import { useEffect } from "react";
 
 function LoginPage() {
 	const { register, handleSubmit } = useForm();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const accessToken = useSelector((state) => state.appUser?.data?.accessToken);
 	const onSubmit = (formData) => {
 		dispatch(signInUser(formData));
-		navigate("/");
 	};
+
+	useEffect(() => {
+		if (accessToken) {
+			navigate("/");
+		}
+	}, [accessToken, navigate]);
 	return (
 		<Box
 			className='flex flex-col justify-center items-center pt-10'

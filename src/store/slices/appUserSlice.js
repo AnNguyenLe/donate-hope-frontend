@@ -14,9 +14,12 @@ const appUserSlice = createSlice({
 		});
 		builder.addCase(signInUser.fulfilled, (state, action) => {
 			state.isLoading = false;
-			state.data = action.payload;
-
-			localStorage.setItem("appUser", action.payload);
+			const data = {
+				...action.payload,
+				displayName: `${action.payload.firstName} ${action.payload.lastName}`,
+			};
+			state.data = data;
+			localStorage.setItem("appUser", data);
 		});
 		builder.addCase(signInUser.rejected, (state, action) => {
 			state.isLoading = false;

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useThunk } from "../../hooks/useThunk";
 import { fetchCampaigns } from "../../store/thunks/campaigns/fetchCampaigns";
 import { Skeleton, Container, Grid2, Box } from "@mui/material";
-import CampaignCard from "./CampaignCard";
+import CampaignCard from "../../components/campaign/CampaignCard";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function CampaignsListPage() {

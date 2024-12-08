@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
-import CampaignCard from "./campaign/CampaignCard";
+import CampaignCard from "../components/campaign/CampaignCard";
 import { useSelector } from "react-redux";
 
 export default function HomePage() {

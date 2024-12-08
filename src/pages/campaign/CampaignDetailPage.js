@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-	Container,
-	Card,
-	CardContent,
-	Typography,
-	Box,
-	LinearProgress,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import axiosInstance from "../../utils/axiosInstance";
 import { useParams } from "react-router-dom";
+import CampaignDetail from "../../components/campaign/CampaignDetail";
+import CommentSection from "../../components/comment/CommentSection";
 
 const CampaignDetailPage = () => {
 	const [campaign, setCampaign] = useState(null);
@@ -33,77 +28,18 @@ const CampaignDetailPage = () => {
 	}
 
 	return (
-		<Container maxWidth='md' className='mt-6'>
-			<Card>
-				<CardContent>
-					<Typography variant='h4' gutterBottom>
-						{campaign.title}
-					</Typography>
-					<Typography variant='h6' color='textSecondary' gutterBottom>
-						{campaign.subtitle}
-					</Typography>
-
-					<Typography variant='body1'>{campaign.description}</Typography>
-
-					<Typography variant='body2' color='textSecondary'>
-						<strong>Summary:</strong> {campaign.summary}
-					</Typography>
-
-					<Box marginTop={2}>
-						<Typography variant='body2' color='textSecondary' gutterBottom>
-							Goal: {campaign.goalAmount} {campaign.unitOfMeasurement}
-						</Typography>
-						<LinearProgress
-							variant='determinate'
-							value={(campaign.achievedAmount / campaign.goalAmount) * 100}
-						/>
-						<Typography variant='body2' color='textSecondary' marginTop={1}>
-							Achieved: {campaign.achievedAmount} {campaign.unitOfMeasurement} |
-							Status: {campaign.goalStatus}
-						</Typography>
-					</Box>
-
-					<Box marginTop={3}>
-						<Typography variant='body2' color='textSecondary'>
-							<strong>Expecting Start Date:</strong>{" "}
-							{new Date(campaign.expectingStartDate).toLocaleDateString()}
-						</Typography>
-						<Typography variant='body2' color='textSecondary'>
-							<strong>Expecting End Date:</strong>{" "}
-							{new Date(campaign.expectingEndDate).toLocaleDateString()}
-						</Typography>
-						<Typography variant='body2' color='textSecondary'>
-							<strong>Number of Ratings:</strong> {campaign.numberOfRatings}
-						</Typography>
-						<Typography variant='body2' color='textSecondary'>
-							<strong>Average Rating:</strong>{" "}
-							{campaign.averageRatingPoint.toFixed(1)} / 5
-						</Typography>
-					</Box>
-
-					<Box marginTop={3}>
-						<Typography variant='body2' color='textSecondary'>
-							<strong>Total Spending:</strong> {campaign.spendingAmount}{" "}
-							{campaign.unitOfMeasurement}
-						</Typography>
-					</Box>
-
-					{campaign.proofsUrl && (
-						<Box marginTop={3}>
-							<Typography variant='body2' color='textSecondary'>
-								<strong>Proofs:</strong>{" "}
-								<a
-									href={campaign.proofsUrl}
-									target='_blank'
-									rel='noopener noreferrer'
-								>
-									View Proofs
-								</a>
-							</Typography>
-						</Box>
-					)}
-				</CardContent>
-			</Card>
+		<Container
+			maxWidth={false}
+			className='mt-6'
+			sx={{ display: "flex", justifyContent: "space-between" }}
+		>
+			<Box sx={{ width: "70%" }}>
+				<CampaignDetail campaign={campaign} />
+				<CommentSection campaignId={id} />
+			</Box>
+			<Box sx={{ border: "1px solid black", width: "28%", height: "20rem" }}>
+				Contributor section here
+			</Box>
 		</Container>
 	);
 };

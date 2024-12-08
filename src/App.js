@@ -9,7 +9,7 @@ import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import CampaignsListPage from "./pages/campaign/CampaignsListPage";
 import CampaignDetailPage from "./pages/campaign/CampaignDetailPage";
-import CampaignCreate from "./pages/campaign/CampaignCreate";
+import CampaignCreate from "./components/campaign/CampaignCreate";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
