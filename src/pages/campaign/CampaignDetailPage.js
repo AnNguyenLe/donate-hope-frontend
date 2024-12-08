@@ -43,11 +43,9 @@ const CampaignDetailPage = () => {
 						{campaign.subtitle}
 					</Typography>
 
-					<Typography variant='body1' paragraph>
-						{campaign.description}
-					</Typography>
+					<Typography variant='body1'>{campaign.description}</Typography>
 
-					<Typography variant='body2' color='textSecondary' paragraph>
+					<Typography variant='body2' color='textSecondary'>
 						<strong>Summary:</strong> {campaign.summary}
 					</Typography>
 
@@ -67,12 +65,12 @@ const CampaignDetailPage = () => {
 
 					<Box marginTop={3}>
 						<Typography variant='body2' color='textSecondary'>
-							<strong>Start Date:</strong>{" "}
-							{new Date(campaign.startDate).toLocaleDateString()}
+							<strong>Expecting Start Date:</strong>{" "}
+							{new Date(campaign.expectingStartDate).toLocaleDateString()}
 						</Typography>
 						<Typography variant='body2' color='textSecondary'>
-							<strong>End Date:</strong>{" "}
-							{new Date(campaign.endDate).toLocaleDateString()}
+							<strong>Expecting End Date:</strong>{" "}
+							{new Date(campaign.expectingEndDate).toLocaleDateString()}
 						</Typography>
 						<Typography variant='body2' color='textSecondary'>
 							<strong>Number of Ratings:</strong> {campaign.numberOfRatings}

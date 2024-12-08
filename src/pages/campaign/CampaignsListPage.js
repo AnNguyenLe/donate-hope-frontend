@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useThunk } from "../../hooks/useThunk";
 import { fetchCampaigns } from "../../store/thunks/campaigns/fetchCampaigns";
-import { Skeleton, Container, Grid2 } from "@mui/material";
+import { Skeleton, Container, Grid2, Box } from "@mui/material";
 import CampaignCard from "./CampaignCard";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CampaignsListPage() {
 	const [doFetchCampaigns, isLoadingCampaigns, loadingCampaignsError] =
@@ -44,5 +44,42 @@ export default function CampaignsListPage() {
 		content = <div>No campaigns available.</div>;
 	}
 
-	return content;
+	return (
+		<>
+			<Box
+				sx={{
+					position: 'relative',
+					top: '1.8rem',
+					left: '6.8rem'
+				}}
+			>
+				<Link to='/campaign/create'>
+					<Box
+						sx={{
+							display: "inline-block",
+							padding: "10px 20px",
+							borderRadius: "4px",
+							backgroundColor: "primary.main",
+							color: "white",
+							textAlign: "center",
+							cursor: "pointer",
+							fontWeight: "bold",
+							fontSize: "16px",
+							boxShadow: 2,
+							"&:hover": {
+								backgroundColor: "primary.dark",
+								boxShadow: 6,
+							},
+							"&:active": {
+								backgroundColor: "primary.light",
+							},
+						}}
+					>
+						Add campaign
+					</Box>
+				</Link>
+			</Box>
+			{content}
+		</>
+	);
 }

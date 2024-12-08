@@ -67,15 +67,15 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
 
 				<Box marginBottom={2}>
 					<Typography variant='body2' color='text.secondary'>
-						Start Date:{" "}
-						{campaign.startDate
-							? new Date(campaign.startDate).toLocaleDateString()
+						Expecting Start Date:{" "}
+						{campaign.expectingStartDate
+							? new Date(campaign.expectingStartDate).toLocaleDateString()
 							: "Not started yet"}
 					</Typography>
 					<Typography variant='body2' color='text.secondary'>
-						End Date:{" "}
-						{campaign.endDate
-							? new Date(campaign.endDate).toLocaleDateString()
+						Expecting End Date:{" "}
+						{campaign.expectingEndDate
+							? new Date(campaign.expectingEndDate).toLocaleDateString()
 							: "Not ended yet"}
 					</Typography>
 				</Box>

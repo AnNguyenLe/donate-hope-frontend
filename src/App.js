@@ -1,10 +1,27 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+	createBrowserRouter,
+	Navigate,
+	RouterProvider,
+} from "react-router-dom";
 import LoginPage from "./pages/user/LoginPage";
 import Root from "./pages/layout/Root";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/user/RegisterPage";
 import CampaignsListPage from "./pages/campaign/CampaignsListPage";
 import CampaignDetailPage from "./pages/campaign/CampaignDetailPage";
+import CampaignCreate from "./pages/campaign/CampaignCreate";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
+const ProtectedRoute = ({ children }) => {
+	const appUser = useSelector((state) => state.appUser);
+
+	if (!appUser?.data) {
+		return <Navigate to='/signin' replace />;
+	}
+
+	return children;
+};
 
 const router = createBrowserRouter([
 	{
@@ -29,21 +46,44 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/campaign/:id",
-				element: <CampaignDetailPage />,
+				element: (
+					<ProtectedRoute>
+						<CampaignDetailPage />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/campaign",
-				element: <CampaignsListPage />,
+				element: (
+					<ProtectedRoute>
+						<CampaignsListPage />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "/campaign/create",
+				element: (
+					<ProtectedRoute>
+						<CampaignCreate />
+					</ProtectedRoute>
+				),
 			},
 			{
 				path: "/",
-				element: <HomePage />,
+				element: (
+					<ProtectedRoute>
+						<HomePage />
+					</ProtectedRoute>
+				),
 			},
 		],
 	},
 ]);
 
 const App = () => {
+	useEffect(() => {
+		document.title = "Donate Hope";
+	}, []);
 	return <RouterProvider router={router} />;
 };
 
