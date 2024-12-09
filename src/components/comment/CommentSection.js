@@ -17,6 +17,8 @@ const CommentSection = ({ campaignId }) => {
 	const [comments, setComments] = useState([]);
 	const [newComment, setNewComment] = useState("");
 
+	const getFirstLetter = (text) => (text ? text.trim().charAt(0) : "A");
+
 	const fetchComments = useCallback(async () => {
 		try {
 			const response = await axiosInstance.get(
@@ -56,7 +58,7 @@ const CommentSection = ({ campaignId }) => {
 			<form onSubmit={handleSubmit(onPostComment)}>
 				<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
 					<Avatar sx={{ width: 40, height: 40, mr: 2 }}>
-						{appUser.firstName.charAt(0)}
+						{getFirstLetter(appUser.firstName)}
 					</Avatar>
 					<TextField
 						fullWidth
@@ -90,10 +92,12 @@ const CommentSection = ({ campaignId }) => {
 					comments?.length !== 0 &&
 					comments.map((comment) => (
 						<ListItem key={comment.id} sx={{ py: 1 }}>
-							<Avatar sx={{ width: 40, height: 40, mr: 2 }}>Anonymous</Avatar>
+							<Avatar sx={{ width: 40, height: 40, mr: 2 }}>
+								{getFirstLetter(comment.firstName)}
+							</Avatar>
 							<Box sx={{ width: "100%" }}>
 								<Typography variant='subtitle2' sx={{ fontWeight: "bold" }}>
-									Anonymous
+									{`${comment.firstName} ${comment.lastName}`}
 								</Typography>
 								<Typography variant='body2' sx={{ mb: 1 }}>
 									{`${comment.content}`}
