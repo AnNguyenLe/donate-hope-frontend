@@ -24,6 +24,7 @@ export default function NavBar() {
 			>
 				{pages.map((page) => (
 					<Box
+						key={page.label}
 						sx={{
 							":hover": {
 								borderBottom: ".2rem solid white",

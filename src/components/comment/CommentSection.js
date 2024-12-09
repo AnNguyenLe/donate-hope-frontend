@@ -20,7 +20,7 @@ const CommentSection = ({ campaignId }) => {
 	const fetchComments = useCallback(async () => {
 		try {
 			const response = await axiosInstance.get(
-				`/campaign-comment/${campaignId}`
+				`/campaign/${campaignId}/comment`
 			);
 			setComments(response.data);
 		} catch (error) {
@@ -83,19 +83,20 @@ const CommentSection = ({ campaignId }) => {
 			<Divider />
 
 			<List sx={{ mt: 2 }}>
-				{comments.length === 0 && "Hãy là người đầu tiên bình luận!"}
-				{comments.length !== 0 &&
+				{comments &&
+					comments?.length === 0 &&
+					"Hãy là người đầu tiên bình luận!"}
+				{comments &&
+					comments?.length !== 0 &&
 					comments.map((comment) => (
 						<ListItem key={comment.id} sx={{ py: 1 }}>
-							<Avatar sx={{ width: 40, height: 40, mr: 2 }}>
-								{comment.user[0]}
-							</Avatar>
+							<Avatar sx={{ width: 40, height: 40, mr: 2 }}>Anonymous</Avatar>
 							<Box sx={{ width: "100%" }}>
 								<Typography variant='subtitle2' sx={{ fontWeight: "bold" }}>
-									{comment.user}
+									Anonymous
 								</Typography>
 								<Typography variant='body2' sx={{ mb: 1 }}>
-									{`${comment.text}`}
+									{`${comment.content}`}
 								</Typography>
 							</Box>
 						</ListItem>

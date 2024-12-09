@@ -48,9 +48,9 @@ export default function CampaignsListPage() {
 		<>
 			<Box
 				sx={{
-					position: 'relative',
-					top: '1.8rem',
-					left: '6.8rem'
+					position: "relative",
+					top: "1.8rem",
+					left: "6.8rem",
 				}}
 			>
 				<Link to='/campaign/create'>
