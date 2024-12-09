@@ -6,7 +6,15 @@ const appUserSlice = createSlice({
 	initialState: {
 		isLoading: false,
 		error: null,
-		data: null,
+		data: JSON.parse(localStorage.getItem("appUser")) || null,
+	},
+	reducers: {
+		signOutUser: (state) => {
+			state.data = null;
+			state.error = null;
+			state.isLoading = false;
+			localStorage.removeItem("appUser");
+		},
 	},
 	extraReducers(builder) {
 		builder.addCase(signInUser.pending, (state, action) => {
@@ -19,7 +27,7 @@ const appUserSlice = createSlice({
 				displayName: `${action.payload.firstName} ${action.payload.lastName}`,
 			};
 			state.data = data;
-			localStorage.setItem("appUser", data);
+			localStorage.setItem("appUser", JSON.stringify(data));
 		});
 		builder.addCase(signInUser.rejected, (state, action) => {
 			state.isLoading = false;
@@ -28,4 +36,5 @@ const appUserSlice = createSlice({
 	},
 });
 
+export const { signOutUser } = appUserSlice.actions;
 export const appUserReducer = appUserSlice.reducer;
