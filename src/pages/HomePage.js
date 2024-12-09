@@ -196,8 +196,8 @@ export default function HomePage() {
       </Box>
 
       {/* Campaigns Section */}
-      <Box sx={{ px: 3, py: 6, textAlign: "center", bgcolor: "#f1f1f1" }}>
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 4 }}>
+      <Box sx={{ px: 3, py: 6, bgcolor: "#f1f1f1" }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 4 , textAlign: "center"}}>
           Các Chiến Dịch Nổi Bật
         </Typography>
         <Grid2 container spacing={3} justifyContent="center">
