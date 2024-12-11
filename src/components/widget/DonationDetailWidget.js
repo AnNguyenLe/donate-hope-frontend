@@ -50,9 +50,7 @@ const DonationDetailWidget = ({ name, amount, unitOfMeasurement, message }) => {
             { label: "Donator:", value: name || "Unknown" },
             {
               label: "Donation Amount:",
-              value: `${unitOfMeasurement} ${
-                amount ? amount.toLocaleString() : "0"
-              }`,
+              value: `${amount ? amount.toLocaleString() : "0"} ${unitOfMeasurement}`,
               style: {
                 fontWeight: "bold",
                 color: "#990000",

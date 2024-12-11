@@ -26,7 +26,7 @@ const PaymentMethodsWidget = ({ amount, unitOfMeasurement, campaignId }) => {
       console.error("Error add new donation:", error);
     }
     setTimeout(() => {
-      alert(`Thank you for your donation of $${amount}`);
+      alert(`Thank you for your donation of ${amount.toLocaleString()} ${unitOfMeasurement.toUpperCase()}`);
       navigate(`/campaign/${campaignId}`);
     }, 1000);
   };

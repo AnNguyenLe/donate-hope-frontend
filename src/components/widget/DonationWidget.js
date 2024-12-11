@@ -52,10 +52,11 @@ const DonationWidget = ({ campaignId, unitOfMeasurement }) => {
           onChange={(e) => setName(e.target.value)}
         />
         <TextField
-          label={`Donation Amount (${unitOfMeasurement})`}
+          label={`Donation Amount (${unitOfMeasurement.toUpperCase()})`}
           variant="outlined"
           fullWidth
           margin="normal"
+          textTransform="uppercase"
           value={amount.toLocaleString()}
           onChange={(e) => {
             const rawValue = e.target.value.replace(/,/g, "");
