@@ -4,7 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { useParams } from "react-router-dom";
 import CampaignDetail from "../../components/campaign/CampaignDetail";
 import CommentSection from "../../components/comment/CommentSection";
-import DonationWidget from "../../components/widget/DonateionWidget";
+import DonationWidget from "../../components/widget/DonationWidget";
 
 const CampaignDetailPage = () => {
 	const [campaign, setCampaign] = useState(null);
@@ -39,7 +39,7 @@ const CampaignDetailPage = () => {
 				<CommentSection campaignId={id} />
 			</Box>
 			<Box sx={{ width: "28%" }}>
-				<DonationWidget unitOfMeasurement={campaign.unitOfMeasurement} />
+				<DonationWidget campaignId={id} unitOfMeasurement={campaign.unitOfMeasurement} />
 			</Box>
 		</Container>
 	);
