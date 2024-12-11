@@ -4,7 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { useParams } from "react-router-dom";
 import CampaignDetail from "../../components/campaign/CampaignDetail";
 import CommentSection from "../../components/comment/CommentSection";
-import DonationWidget from "../../components/widget/DonateionWidget";
+import DonationWidget from "../../components/widget/DonationWidget";
 import RatingSection from "../../components/rating/RatingSection";
 
 const CampaignDetailPage = () => {
