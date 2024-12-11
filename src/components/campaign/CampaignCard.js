@@ -126,7 +126,7 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
             alignItems="center"
           >
             <BulletPoint />
-            Achieved:{" "}
+            Achieved:&nbsp;
             <strong>
               <Box
                 component="span"
@@ -186,7 +186,7 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
           marginBottom={2}
         >
           <BulletPoint />
-          Rating: {campaign.averageRatingPoint?.toFixed(2) ?? 0.0} (
+          Average Rating: {campaign.averageRatingPoint?.toFixed(2) ?? 0.0} (
           {campaign.numberOfRatings ?? 0} ratings)
         </Typography>
       </CardContent>
