@@ -42,14 +42,16 @@ const CommentSection = ({ campaignId }) => {
 		if (content.trim()) {
 			const contentObj = {
 				id: comments.length + 1,
-				user: appUser.displayName,
-				text: content,
+				content: content,
+				firstName: appUser.firstName,
+				lastName: appUser.lastName
 			};
 			setComments([contentObj, ...comments]);
 			axiosInstance.post("/campaign-comment/create", {
 				campaignId,
 				content,
 			});
+
 		}
 	};
 
