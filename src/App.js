@@ -10,6 +10,7 @@ import RegisterPage from "./pages/user/RegisterPage";
 import CampaignsListPage from "./pages/campaign/CampaignsListPage";
 import CampaignDetailPage from "./pages/campaign/CampaignDetailPage";
 import CampaignCreate from "./components/campaign/CampaignCreate";
+import CampaignContributionDetailPage from "./pages/campaignContribution/CampaignContributionDetailPage";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -65,6 +66,14 @@ const router = createBrowserRouter([
 				element: (
 					<ProtectedRoute>
 						<CampaignCreate />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "/campaign/:id/contribute",
+				element: (
+					<ProtectedRoute>
+						<CampaignContributionDetailPage />
 					</ProtectedRoute>
 				),
 			},
