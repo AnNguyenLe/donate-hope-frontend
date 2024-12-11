@@ -45,7 +45,7 @@ export default function HomePage() {
           alignItems: "center",
           flexDirection: "column",
           textAlign: "center",
-          backgroundImage: 'url("/hinh-thien-tai.jpg")',
+          backgroundImage: 'url("hinh-thien-tai.jpg")',
           backgroundSize: "cover", // Ensures the image covers the entire box
           backgroundPosition: "center", // Centers the image
           backgroundRepeat: "no-repeat", // Prevents repeating the image

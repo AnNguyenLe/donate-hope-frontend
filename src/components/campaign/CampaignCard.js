@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +7,12 @@ import {
   LinearProgress,
   Divider,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
+import DonationWidget from "../widget/DonationWidget";
 
 const BulletPoint = () => (
   <Box
@@ -25,6 +30,16 @@ const BulletPoint = () => (
 
 export default function CampaignCard({ campaign, goToDetailPage }) {
   const progress = (campaign.achievedAmount / campaign.goalAmount) * 100;
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <Card
@@ -174,7 +189,6 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
           Rating: {campaign.averageRatingPoint?.toFixed(2) ?? 0.0} (
           {campaign.numberOfRatings ?? 0} ratings)
         </Typography>
-
       </CardContent>
       <Box
         sx={{
@@ -234,6 +248,7 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
             background: "#66CC00",
             fontWeight: "bold",
           }}
+          onClick={handleOpenDialog}
         >
           Donate
         </Button>
@@ -249,6 +264,25 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
           Detail
         </Button>
       </Box>
+
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogContent>
+          <DonationWidget
+            campaignId={campaign.id}
+            unitOfMeasurement={campaign.unitOfMeasurement}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }
