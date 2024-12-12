@@ -32,13 +32,13 @@ const CampaignDetailPage = () => {
         }
     }, [id]);
 
-    useEffect(() => {
-        fetchCampaignDetail();
-    }, [fetchCampaignDetail]);
+  useEffect(() => {
+    fetchCampaignDetail();
+  }, [fetchCampaignDetail]);
 
-    if (!campaign) {
-        return <Typography>Loading campaign details...</Typography>;
-    }
+  if (!campaign) {
+    return <Typography>Loading campaign details...</Typography>;
+  }
 
     return (
         <Container
@@ -59,6 +59,25 @@ const CampaignDetailPage = () => {
             </Box>
         </Container>
     );
+  return (
+    <Container
+      maxWidth={false}
+      className="mt-6"
+      sx={{ display: "flex", justifyContent: "space-between" }}
+    >
+      <Box sx={{ width: "70%" }}>
+        <CampaignDetail campaign={campaign} />
+        <RatingSection campaignId={id} />
+        <CommentSection campaignId={id} />
+      </Box>
+      <Box sx={{ width: "28%" }}>
+        <DonationWidget
+          campaignId={id}
+          unitOfMeasurement={campaign.unitOfMeasurement}
+        />
+      </Box>
+    </Container>
+  );
 };
 
 export default CampaignDetailPage;

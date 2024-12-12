@@ -34,6 +34,7 @@ export default function PageHeader() {
 							flexDirection: "row",
 							alignItems: "center",
 							justifyContent: "space-evenly",
+							cursor: "pointer",
 						}}
 					>
 						<FaHeart />
