@@ -45,7 +45,12 @@ const CampaignDetailPage = () => {
     >
       <Box sx={{ width: "70%" }}>
         <CampaignDetail campaign={campaign} />
-        <CampaignPhotos photoUrls={proofUrls.slice(0, 3)} />
+        <CampaignPhotos
+          photoUrls={proofUrls.slice(
+            1,
+            proofUrls.length > 4 ? 4 : proofUrls.length
+          )}
+        />
         <RatingSection campaignId={id} />
         <CommentSection campaignId={id} />
       </Box>
