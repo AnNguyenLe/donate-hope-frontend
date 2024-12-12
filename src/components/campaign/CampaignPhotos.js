@@ -2,7 +2,6 @@ import React from "react";
 import {
   Container,
   Box,
-  Typography,
   ImageList,
   ImageListItem,
 } from "@mui/material";
@@ -11,9 +10,6 @@ const CampaignPhotos = ({ photoUrls }) => {
   return (
     <Container>
       <Box sx={{ my: 4 }}>
-        {/* <Typography variant="h6" gutterBottom>
-          Campaign Photos
-        </Typography> */}
         <ImageList cols={3} gap={8}>
           {photoUrls.map((photoUrl, index) => (
             <ImageListItem key={index}>
