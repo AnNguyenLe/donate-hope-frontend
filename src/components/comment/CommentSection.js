@@ -8,6 +8,7 @@ import {
 	List,
 	ListItem,
 	Divider,
+	Container,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../utils/axiosInstance";
@@ -56,6 +57,7 @@ const CommentSection = ({ campaignId }) => {
 	};
 
 	return (
+		<Container>
 		<Box sx={{ width: "95%", marginTop: "4rem" }}>
 			<form onSubmit={handleSubmit(onPostComment)}>
 				<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -109,6 +111,7 @@ const CommentSection = ({ campaignId }) => {
 					))}
 			</List>
 		</Box>
+		</Container>
 	);
 };
 
