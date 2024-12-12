@@ -1,14 +1,30 @@
 import { Box, Input } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Link, useNavigate } from "react-router-dom";
+import DatePickerField from "../../components/shared/DatePickerField";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpUser } from "../../store";
+import { useEffect } from "react";
 
 function RegisterPage() {
-	const { register, handleSubmit } = useForm();
+	const {
+		register,
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm();
+	const dispatch = useDispatch();
+	const accessToken = useSelector((state) => state.appUser?.data?.accessToken);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (accessToken) {
+			navigate("/");
+		}
+	}, [accessToken, navigate]);
+
 	const onSubmit = (formData) => {
-		console.log(formData);
+		dispatch(signUpUser(formData));
 	};
 	return (
 		<Box
@@ -36,9 +52,13 @@ function RegisterPage() {
 				</Box>
 				<Box className='pt-12 flex justify-between'>
 					<label className='text-xl'>Date of Birth</label>
-					<LocalizationProvider dateAdapter={AdapterDayjs}>
-						<DatePicker format='YYYY-MM-DD' {...register("dateOfBirth")} />
-					</LocalizationProvider>
+					<DatePickerField
+						control={control}
+						name='dateOfBirth'
+						label='Pick a Date of Birth'
+						rules={{ required: "Date of Birth is required" }}
+						errors={errors}
+					/>
 				</Box>
 				<Box className='pt-12 flex justify-between'>
 					<label className='text-xl'>Email</label>

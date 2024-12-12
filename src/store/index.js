@@ -12,7 +12,7 @@ const store = configureStore({
 
 export { store };
 
-export * from "./thunks/appUser/signInUser";
+export * from "./thunks/appUser/auth";
 export * from "./thunks/campaigns/fetchCampaigns";
 
 export { signOutUser };
