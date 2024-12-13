@@ -6,9 +6,11 @@ import CampaignDetail from "../../components/campaign/CampaignDetail";
 import CommentSection from "../../components/comment/CommentSection";
 import DonationWidget from "../../components/widget/DonationWidget";
 import RatingSection from "../../components/rating/RatingSection";
+import CampaignPhotos from "../../components/campaign/CampaignPhotos";
 
 const CampaignDetailPage = () => {
   const [campaign, setCampaign] = useState(null);
+  const [proofUrls, setProofUrls] = useState([]);
 
   const { id } = useParams();
 
@@ -16,6 +18,12 @@ const CampaignDetailPage = () => {
     try {
       const response = await axiosInstance.get(`/campaign/${id}`);
       setCampaign(response.data);
+
+      const urls = response.data.proofsUrl
+        ? response.data.proofsUrl.split(",").map((url) => url.trim())
+        : [];
+
+      setProofUrls(urls);
     } catch (error) {
       console.error("Error fetching campaign details:", error);
     }
@@ -37,6 +45,12 @@ const CampaignDetailPage = () => {
     >
       <Box sx={{ width: "70%" }}>
         <CampaignDetail campaign={campaign} />
+        <CampaignPhotos
+          photoUrls={proofUrls.slice(
+            1,
+            proofUrls.length > 4 ? 4 : proofUrls.length
+          )}
+        />
         <RatingSection campaignId={id} />
         <CommentSection campaignId={id} />
       </Box>
