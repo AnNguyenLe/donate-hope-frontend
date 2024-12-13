@@ -9,7 +9,7 @@ import EWalletQRCode from "../../assets/qrCodes/momo-qr-code.png";
 import axiosInstance from "../../utils/axiosInstance";
 import AlertComponent from "../../pages/campaignContribution/AlertCampaignContribution";
 
-const PaymentMethodsWidget = ({ amount, unitOfMeasurement, campaignId }) => {
+const PaymentMethodsWidget = ({ amount, unitOfMeasurement, name, message, campaignId }) => {
     const [selectedMethod, setSelectedMethod] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
