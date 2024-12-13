@@ -9,25 +9,26 @@ import RatingSection from "../../components/rating/RatingSection";
 import DonationReport from "../../components/report/DonationReport";
 
 const CampaignDetailPage = () => {
-  const [campaign, setCampaign] = useState(null);
-  const [proofUrls, setProofUrls] = useState([]);
+    const [campaign, setCampaign] = useState(null);
+    const [proofUrls, setProofUrls] = useState([]);
 
   const { id } = useParams();
 
-  const fetchCampaignDetail = useCallback(async () => {
-    try {
-      const response = await axiosInstance.get(`/campaign/${id}`);
-      setCampaign(response.data);
+    const fetchCampaignDetail = useCallback(async () => {
+        try {
+            const response = await axiosInstance.get(`/campaign/${id}`);
+            setCampaign(response.data);
 
-      const urls = response.data.proofsUrl
-        ? response.data.proofsUrl.split(",").map((url) => url.trim())
-        : [];
+            const urls = response.data.proofsUrl
+                ? response.data.proofsUrl.split(",").map((url) => url.trim())
+                : [];
 
-      setProofUrls(urls);
-    } catch (error) {
-      console.error("Error fetching campaign details:", error);
-    }
-  }, [id]);
+            setProofUrls(urls);
+            console.log("Proof URLs:", urls);
+        } catch (error) {
+            console.error("Error fetching campaign details:", error);
+        }
+    }, [id]);
 
   useEffect(() => {
     fetchCampaignDetail();
