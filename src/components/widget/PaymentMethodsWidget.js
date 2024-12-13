@@ -8,7 +8,7 @@ import BankTransferQRCode from "../../assets/qrCodes/bank-transfer-qr-code.png";
 import EWalletQRCode from "../../assets/qrCodes/momo-qr-code.png";
 import axiosInstance from "../../utils/axiosInstance";
 
-const PaymentMethodsWidget = ({ amount, unitOfMeasurement, campaignId }) => {
+const PaymentMethodsWidget = ({ amount, unitOfMeasurement, name, message, campaignId }) => {
   const [selectedMethod, setSelectedMethod] = useState(null);
   const navigate = useNavigate();
 
@@ -17,6 +17,8 @@ const PaymentMethodsWidget = ({ amount, unitOfMeasurement, campaignId }) => {
       amount: amount,
       unitOfMeasurement: unitOfMeasurement,
       contributionMethod: selectedMethod,
+      donatorName: name,
+      message: message,
       campaignId: campaignId,
     };
 

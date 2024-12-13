@@ -6,7 +6,7 @@ import CampaignDetail from "../../components/campaign/CampaignDetail";
 import CommentSection from "../../components/comment/CommentSection";
 import DonationWidget from "../../components/widget/DonationWidget";
 import RatingSection from "../../components/rating/RatingSection";
-import CampaignPhotos from "../../components/campaign/CampaignPhotos";
+import DonationReport from "../../components/report/DonationReport";
 
 const CampaignDetailPage = () => {
   const [campaign, setCampaign] = useState(null);
@@ -51,6 +51,7 @@ const CampaignDetailPage = () => {
         <CampaignDetail campaign={campaign} proofUrls={proofUrls} />
         <RatingSection campaignId={id} />
         <CommentSection campaignId={id} />
+        <DonationReport campaignId={id} />
       </Box>
       <Box sx={{ width: "28%" }}>
         <DonationWidget
