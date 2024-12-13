@@ -4,33 +4,22 @@ import {
     CardContent,
     Typography,
     Box,
-    LinearProgress,
-    Divider,
     Button,
+    Divider,
     Dialog,
     DialogActions,
     DialogContent,
+    Rating,
 } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import { AccessTime } from "@mui/icons-material";
+import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import DonationWidget from "../widget/DonationWidget";
 
-const BulletPoint = () => (
-    <Box
-        component="span"
-        sx={{
-            color: "#28a745",
-            fontWeight: "bold",
-            fontSize: "1.5rem",
-            marginRight: 1,
-        }}
-    >
-        •
-    </Box>
-);
-
-export default function CampaignCard({ campaign, goToDetailPage }) {
+const CampaignCard = ({ campaign, goToDetailPage }) => {
     const progress = (campaign.achievedAmount / campaign.goalAmount) * 100;
-
     const [openDialog, setOpenDialog] = useState(false);
+    const imageBackgroundCard = campaign.proofsUrl.split(",")[1];
 
     const handleOpenDialog = () => {
         setOpenDialog(true);
@@ -43,243 +32,131 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
     return (
         <Card
             sx={{
-                border: "1px solid #9AD221",
-                width: 450,
-                height: 700,
+                width: 360,
+                height: 540,
+                borderRadius: 2,
+                boxShadow: 3,
                 display: "flex",
                 flexDirection: "column",
+                marginBottom: 2,
             }}
         >
+            <Box
+                sx={{
+                    height: 200,
+                    backgroundImage: `url(${imageBackgroundCard})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    borderTopLeftRadius: 2,
+                    borderTopRightRadius: 2,
+                }}
+            ></Box>
+
             <CardContent
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
                     flex: 1,
                 }}
             >
                 <Typography
-                    variant="h5"
-                    component="div"
-                    gutterBottom
-                    onClick={() => goToDetailPage()}
+                    variant="h6"
                     sx={{
-                        display: "block",
+                        fontWeight: "bold",
+                        mb: 3,
                         textAlign: "center",
-                        cursor: "pointer",
-                        background:
-                            "linear-gradient(to right, #66CC00, #FFFF66)",
-                        padding: "0.5rem",
-                        borderRadius: "8px",
-                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                        ":hover": {
-                            borderBottom: ".2rem solid #9AD221",
-                            boxShadow: "0 6px 12px rgba(0, 0, 0, 0.2)",
-                        },
+                        color: "success.main",
                     }}
                 >
-                    {campaign.title || "Untitled Campaign"}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                    {campaign.subtitle || "No subtitle available"}
+                    {campaign.title || "Campaign Title"}
                 </Typography>
 
-                <Divider sx={{ marginBottom: 1 }} />
-
-                <Box>
-                    <Typography
-                        variant="body1"
-                        color="text.secondary"
-                        alignItems="center"
-                        marginBottom={2}
-                        sx={{
-                            maxHeight: 120,
-                            overflow: "auto",
-                            textOverflow: "ellipsis",
-                        }}
-                    >
-                        <strong>Summary:</strong>{" "}
-                        {campaign.summary || "No description available"}
-                    </Typography>
-
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        display="flex"
-                        alignItems="center"
-                        flex={1}
-                    >
-                        <BulletPoint />
-                        Goal:&nbsp;
-                        <strong>
-                            <Box
-                                component="span"
-                                sx={{
-                                    color: "#990000",
-                                    textTransform: "uppercase",
-                                }}
-                            >
-                                {campaign.unitOfMeasurement || "USD"}{" "}
-                                {campaign.goalAmount?.toLocaleString() || "0"}
-                            </Box>{" "}
-                        </strong>
-                    </Typography>
-
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        display="flex"
-                        alignItems="center"
-                    >
-                        <BulletPoint />
-                        Achieved:&nbsp;
-                        <strong>
-                            <Box
-                                component="span"
-                                sx={{
-                                    color: "#990000",
-                                    textTransform: "uppercase",
-                                }}
-                            >
-                                {campaign.unitOfMeasurement || "USD"}{" "}
-                                {campaign.achievedAmount?.toLocaleString() ||
-                                    "0"}
-                            </Box>{" "}
-                        </strong>
-                    </Typography>
-
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        display="flex"
-                        alignItems="center"
-                    >
-                        <BulletPoint />
-                        Campaign status:{" "}
-                        {campaign.campaignStatus ?? "Unknown status"}
-                    </Typography>
-
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        display="flex"
-                        alignItems="center"
-                    >
-                        <BulletPoint />
-                        Expecting Start Date:{" "}
-                        {campaign.expectingStartDate
-                            ? new Date(
-                                  campaign.expectingStartDate
-                              ).toLocaleDateString()
-                            : "Not started yet"}
-                    </Typography>
-
-                    <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        display="flex"
-                        alignItems="center"
-                    >
-                        <BulletPoint />
-                        Expecting End Date:{" "}
-                        {campaign.expectingEndDate
-                            ? new Date(
-                                  campaign.expectingEndDate
-                              ).toLocaleDateString()
-                            : "Not ended yet"}
-                    </Typography>
-                </Box>
-
-                <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    display="flex"
-                    alignItems="center"
-                    marginBottom={2}
-                >
-                    <BulletPoint />
-                    Average Rating:{" "}
-                    {campaign.averageRatingPoint?.toFixed(2) ?? 0.0} (
-                    {campaign.numberOfRatings ?? 0} ratings)
+                <Typography variant="body2" color="text.secondary">
+                    Mục tiêu: ${campaign.goalAmount.toLocaleString()}{" "}
+                    {campaign.unitOfMeasurement}
                 </Typography>
-            </CardContent>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    padding: 2,
-                    borderTop: "1px solid #ddd",
-                }}
-            >
+                <Typography variant="body2" color="text.secondary">
+                    Đã quyên góp: {campaign.achievedAmount.toLocaleString()}{" "}
+                    {campaign.unitOfMeasurement || "0"}
+                </Typography>
+
+                <Divider sx={{ my: 2 }} />
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "space-between",
-                        width: "100%",
+                        justifyContent: "center",
                         alignItems: "center",
-                        marginBottom: 1,
+                        marginY: 2,
                     }}
                 >
-                    <Typography variant="body2" color="text.secondary" flex={1}>
-                        Progress
+                    <CircularProgressWithLabel value={progress} />
+                </Box>
+
+                <Box
+                    sx={{ display: "flex", alignItems: "center", marginTop: 1 }}
+                >
+                    <AccessTime sx={{ color: "gray" }} />
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginLeft: 1 }}
+                    >
+                        <strong>Ngày bắt đầu:</strong>{" "}
+                        {new Date(
+                            campaign.expectingStartDate
+                        ).toLocaleDateString()}
                     </Typography>
                     <Typography
                         variant="body2"
-                        color="#990000"
-                        fontWeight="bold"
+                        color="text.secondary"
+                        sx={{ marginLeft: 1 }}
+                        textAlign="center"
                     >
-                        {Math.min(progress, 100).toFixed(1)}%
+                        <strong>Ngày kết thúc:</strong>{" "}
+                        {new Date(
+                            campaign.expectingEndDate
+                        ).toLocaleDateString()}
                     </Typography>
                 </Box>
-                <LinearProgress
-                    variant="determinate"
-                    value={Math.min(progress, 100)}
-                    sx={{
-                        width: "100%",
-                        height: 8,
-                        borderRadius: 4,
-                        background: "#E6E6E6",
-                        "& .MuiLinearProgress-bar": {
-                            backgroundColor: "#66CC00",
-                        },
-                    }}
-                />
-            </Box>
 
-            {/* Buttons Section */}
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: 2,
-                    borderTop: "1px solid #ddd",
-                    marginTop: 2,
-                }}
-            >
-                <Button
-                    variant="contained"
-                    sx={{
-                        textTransform: "capitalize",
-                        width: "30%",
-                        background: "#66CC00",
-                        fontWeight: "bold",
-                    }}
-                    onClick={handleOpenDialog}
+                <Box
+                    sx={{ display: "flex", alignItems: "center", marginTop: 1 }}
                 >
-                    Donate
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={goToDetailPage}
+                    <StarIcon sx={{ marginRight: 1, color: "warning.main" }} />
+                    <Typography variant="body2" color="textSecondary">
+                        Điểm đánh giá:
+                    </Typography>
+                    <Rating
+                        name="average-rating"
+                        value={campaign.averageRatingPoint}
+                        precision={0.1}
+                        readOnly
+                    />
+                </Box>
+
+                <Box
                     sx={{
-                        textTransform: "capitalize",
-                        width: "30%",
+                        marginTop: 2,
+                        display: "flex",
+                        justifyContent: "space-between",
                     }}
                 >
-                    Detail
-                </Button>
-            </Box>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ width: "45%" }}
+                        onClick={goToDetailPage}
+                    >
+                        CHI TIẾT
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        sx={{ width: "45%" }}
+                        onClick={handleOpenDialog}
+                    >
+                        QUYÊN GÓP
+                    </Button>
+                </Box>
+            </CardContent>
 
             <Dialog
                 open={openDialog}
@@ -301,4 +178,6 @@ export default function CampaignCard({ campaign, goToDetailPage }) {
             </Dialog>
         </Card>
     );
-}
+};
+
+export default CampaignCard;
