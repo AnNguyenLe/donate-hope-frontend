@@ -14,6 +14,8 @@ import CampaignContributionDetailPage from "./pages/campaignContribution/Campaig
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CharityRegisterPage from "./pages/user/CharityRegisterPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import ContactPage from "./pages/ContactPage";
 
 const ProtectedRoute = ({ children }) => {
 	const appUser = useSelector((state) => state.appUser);
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
 			{
 				path: "/signup",
 				element: <RegisterPage />,
+			},
+			{
+				path: "/about-us",
+				element: <AboutUsPage />,
+			},
+			{
+				path: "/contact",
+				element: <ContactPage />,
 			},
 			{
 				path: "/charity/signup",

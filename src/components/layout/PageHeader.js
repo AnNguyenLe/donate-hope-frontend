@@ -1,17 +1,23 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { FaHeart } from "react-icons/fa6";
 import NavBar from "./NavBar";
 import UserAccount from "./UserAccount";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export default function PageHeader() {
 	const navigate = useNavigate();
-	const appUser = useSelector((state) => state.appUser);
 
 	return (
-		<AppBar sx={{ position: "static", backgroundColor: "#6DE219" }}>
-			<Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+		<AppBar
+			sx={{
+				position: "static",
+				backgroundColor: "#6DE219",
+				display: "flex",
+				flexDirection: "row",
+				justifyContent: "space-between",
+			}}
+		>
+			<Toolbar sx={{ width: "50%" }}>
 				<Typography
 					variant='h5'
 					sx={{
@@ -40,10 +46,12 @@ export default function PageHeader() {
 						<FaHeart />
 						<span>Donate Hope</span>
 					</div>
-					{appUser && appUser.data && <NavBar />}
+					<NavBar />
 				</Typography>
-				<UserAccount />
 			</Toolbar>
+			<Box sx={{ display: "flex", alignItems: "center" }}>
+				<UserAccount />
+			</Box>
 		</AppBar>
 	);
 }

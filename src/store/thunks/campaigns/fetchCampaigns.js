@@ -6,4 +6,14 @@ const fetchCampaigns = createAsyncThunk("campaigns/fetch", async () => {
 	return response.data;
 });
 
-export { fetchCampaigns };
+const searchCampaigns = createAsyncThunk(
+	"campaigns/search",
+	async (keyword) => {
+		const response = await axiosInstance.get(
+			`/campaign/search?keyword=${keyword}`
+		);
+		return response.data;
+	}
+);
+
+export { fetchCampaigns, searchCampaigns };
