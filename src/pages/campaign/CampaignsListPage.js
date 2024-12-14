@@ -15,6 +15,7 @@ export default function CampaignsListPage() {
     }, [doFetchCampaigns]);
 
     const campaigns = useSelector((state) => state.campaigns);
+    const isCharityAppUser = useSelector((state) => state.appUser.data.isCharityOrg);
 
     const navigate = useNavigate();
 
@@ -46,40 +47,42 @@ export default function CampaignsListPage() {
 
     return (
         <>
-            <Box
-                sx={{
-                    position: "relative",
-                    top: "1.8rem",
-                    left: "6.8rem",
-                }}
-            >
-                <Link to="/campaign/create">
-                    <Box
-                        sx={{
-                            display: "inline-block",
-                            padding: "10px 20px",
-                            borderRadius: "4px",
-                            backgroundColor: "primary.main",
-                            color: "white",
-                            textAlign: "center",
-                            cursor: "pointer",
-                            fontWeight: "bold",
-                            fontSize: "16px",
-                            boxShadow: 2,
-                            "&:hover": {
-                                backgroundColor: "primary.dark",
-                                boxShadow: 6,
-                            },
-                            "&:active": {
-                                backgroundColor: "primary.light",
-                            },
-                        }}
-                    >
-                        Add campaign
-                    </Box>
-                </Link>
-            </Box>
-            {content}
+            {isCharityAppUser && (
+                <Box
+                    sx={{
+                        position: "relative",
+                        top: "1.8rem",
+                        left: "6.8rem",
+                    }}
+                >
+                    <Link to="/campaign/create">
+                        <Box
+                            sx={{
+                                display: "inline-block",
+                                padding: "10px 20px",
+                                borderRadius: "4px",
+                                backgroundColor: "primary.main",
+                                color: "white",
+                                textAlign: "center",
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                                fontSize: "16px",
+                                boxShadow: 2,
+                                "&:hover": {
+                                    backgroundColor: "primary.dark",
+                                    boxShadow: 6,
+                                },
+                                "&:active": {
+                                    backgroundColor: "primary.light",
+                                },
+                            }}
+                        >
+                            Add campaign
+                        </Box>
+                    </Link>
+                </Box>
+            )}
+                {content}
         </>
     );
 }

@@ -17,8 +17,23 @@ import SavingsIcon from "@mui/icons-material/Savings";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import LinkIcon from "@mui/icons-material/Link";
 import CampaignPhotos from "./CampaignPhotos";
+import CampaignUpdate from "./CampaignUpdate";
+import { useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 export default function CampaignDetail({ campaign, proofUrls }) {
+  const handleCampaignUpdate = (updatedCampaign) => {
+    Object.assign(campaign, updatedCampaign);
+  };
+
+  const userAccessToken = useSelector(
+    (state) => state.appUser?.data?.accessToken
+  );
+  const decodedToken = jwtDecode(userAccessToken);
+  const userUuid = decodedToken?.sub;
+
+  const showUpdateButton = userUuid === campaign.userId;
+
   return (
     <Container
       maxWidth="lg"
@@ -143,14 +158,18 @@ export default function CampaignDetail({ campaign, proofUrls }) {
               <AccessTimeIcon sx={{ marginRight: 1, color: green[500] }} />
               <Typography variant="body2" color="textSecondary" marginRight={2}>
                 <strong>Ngày dự kiến bắt đầu:</strong>{" "}
-                {new Date(campaign.expectingStartDate).toLocaleDateString()}
+                {new Date(campaign.expectingStartDate).toLocaleDateString(
+                  "en-GB"
+                )}
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <AccessTimeIcon sx={{ marginRight: 1, color: green[500] }} />
               <Typography variant="body2" color="textSecondary">
                 <strong>Ngày dự kiến kết thúc:</strong>{" "}
-                {new Date(campaign.expectingEndDate).toLocaleDateString()}
+                {new Date(campaign.expectingEndDate).toLocaleDateString(
+                  "en-GB"
+                )}
               </Typography>
             </Box>
           </Box>
@@ -224,7 +243,6 @@ export default function CampaignDetail({ campaign, proofUrls }) {
             sx={{ display: "flex", alignItems: "center" }}
           >
             <LinkIcon sx={{ marginRight: 1, color: green[500] }} />{" "}
-
             <strong>Hình ảnh chiến dịch:</strong>{" "}
             <a
               href={proofUrls[0]}
@@ -251,6 +269,9 @@ export default function CampaignDetail({ campaign, proofUrls }) {
             )}
           />
         </Box>
+      )}
+      {showUpdateButton && (
+        <CampaignUpdate campaign={campaign} onUpdate={handleCampaignUpdate} />
       )}
     </Container>
   );

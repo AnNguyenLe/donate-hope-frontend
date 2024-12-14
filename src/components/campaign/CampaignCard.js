@@ -102,7 +102,7 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
                         <strong>Ngày bắt đầu:</strong>{" "}
                         {new Date(
                             campaign.expectingStartDate
-                        ).toLocaleDateString()}
+                        ).toLocaleDateString("en-GB")}
                     </Typography>
                     <Typography
                         variant="body2"
@@ -113,7 +113,7 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
                         <strong>Ngày kết thúc:</strong>{" "}
                         {new Date(
                             campaign.expectingEndDate
-                        ).toLocaleDateString()}
+                        ).toLocaleDateString("en-GB")}
                     </Typography>
                 </Box>
 

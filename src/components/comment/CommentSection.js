@@ -25,7 +25,7 @@ const CommentSection = ({ campaignId }) => {
       const response = await axiosInstance.get(
         `/campaign/${campaignId}/comment`
       );
-      setComments(response.data);
+      setComments(Array.isArray(response.data.comments) ? response.data.comments : []);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }

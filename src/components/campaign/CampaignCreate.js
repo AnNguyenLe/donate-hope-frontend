@@ -16,8 +16,21 @@ import axiosInstance from "../../utils/axiosInstance";
 export default function CampaignCreate() {
 	const navigate = useNavigate();
 	const onSubmit = async (formData) => {
+		const combinedProofUrl = [
+			formData.link1,
+			formData.link2,
+			formData.link3,
+			formData.link4,
+		].filter((link) => link)
+		.join(",");
+
+		const finalFormData = {
+			...formData,
+			proofsUrl: combinedProofUrl,
+		}
+
 		try {
-			await axiosInstance.post("/campaign/create", formData);
+			await axiosInstance.post("/campaign/create", finalFormData);
 		} catch (error) {
 			console.error("Error create new campaign:", error);
 		}
@@ -207,19 +220,72 @@ export default function CampaignCreate() {
 								</Grid>
 
 								<Grid size={12}>
+									<Typography
+										variant="h6"
+										sx={{ mb: 2, color: "#777c77" }}
+									>
+										Proofs URL
+										</Typography>
+								<Grid size={12} marginBottom={1}>
 									<Controller
-										name='proofsUrl'
+										name="link1"
 										control={control}
 										render={({ field }) => (
 											<TextField
 												{...field}
-												label='Proofs URL'
-												variant='outlined'
+												label="Link Google Drive"
+												variant="outlined"
 												fullWidth
-												sx={{ bgcolor: "white", borderRadius: 2, boxShadow: 1 }}
+												sx={{ bgcolor: "white", borderRadius: 2 }}
 											/>
 										)}
 									/>
+								</Grid>
+								<Grid size={12}  marginBottom={1}>
+									<Controller
+										name="link2"
+										control={control}
+										render={({ field }) => (
+											<TextField
+												{...field}
+												label="Link hình 1"
+												variant="outlined"
+												fullWidth
+												sx={{ bgcolor: "white", borderRadius: 2 }}
+											/>
+										)}
+									/>
+								</Grid>
+								<Grid size={12}  marginBottom={1}>
+									<Controller
+										name="link3"
+										control={control}
+										render={({ field }) => (
+											<TextField
+												{...field}
+												label="Link hình 2"
+												variant="outlined"
+												fullWidth
+												sx={{ bgcolor: "white", borderRadius: 2 }}
+											/>
+										)}
+									/>
+								</Grid>
+								<Grid size={12}  marginBottom={1}>
+									<Controller
+										name="link4"
+										control={control}
+										render={({ field }) => (
+											<TextField
+												{...field}
+												label="Link hình 3"
+												variant="outlined"
+												fullWidth
+												sx={{ bgcolor: "white", borderRadius: 2 }}
+											/>
+										)}
+									/>
+								</Grid>
 								</Grid>
 
 								<Grid item xs={12}>
