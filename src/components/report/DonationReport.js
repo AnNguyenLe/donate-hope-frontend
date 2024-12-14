@@ -19,7 +19,7 @@ const DonationReport = ({ campaignId }) => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await axiosInstance.get(`/campaign-contribution/campaign-contributions/${campaignId}`);
+        const response = await axiosInstance.get(`/campaign/${campaignId}/contribution/report`);
         setDonations(response.data);
         setFilteredDonations(response.data);
       } catch (error) {
