@@ -72,7 +72,7 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 				</Typography>
 
 				<Typography variant='body2' color='text.secondary'>
-					Mục tiêu: ${campaign.goalAmount.toLocaleString()}{" "}
+					Mục tiêu: <strong>{campaign.goalAmount.toLocaleString()} </strong>
 					{campaign.unitOfMeasurement}
 				</Typography>
 				<Typography variant='body2' color='text.secondary'>
