@@ -15,6 +15,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { AccessTime } from "@mui/icons-material";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import DonationWidget from "../widget/DonationWidget";
+import defaultCardImage from '../../assets/icons/default-campaign-card-image.png';
 
 const CampaignCard = ({ campaign, goToDetailPage }) => {
 	const progress = (campaign.achievedAmount / campaign.goalAmount) * 100;
@@ -24,7 +25,7 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 		typeof campaign.proofsUrl === "string" &&
 		campaign.proofsUrl.includes(",")
 			? campaign.proofsUrl.split(",")[1]
-			: null;
+			: defaultCardImage;
 	const handleOpenDialog = () => {
 		setOpenDialog(true);
 	};
