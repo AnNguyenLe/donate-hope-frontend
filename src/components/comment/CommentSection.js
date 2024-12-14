@@ -36,7 +36,11 @@ const CommentSection = ({ campaignId }) => {
                     },
                 }
             );
-            setComments(response.data.comments);
+            setComments(
+                Array.isArray(response.data.comments)
+                    ? response.data.comments
+                    : []
+            );
             setTotalCount(response.data.totalCount);
             if (response.data.comments.length < loadedComments) {
                 setHasMore(false);
