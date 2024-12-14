@@ -1,13 +1,30 @@
 import { Toolbar, Typography, Box } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function NavBar() {
-	const pages = [
+	const appUser = useSelector((state) => state.appUser);
+	const protectedPages = [
 		{
-			label: "Campaigns",
+			label: "Chiến dịch",
 			path: "/campaign",
 		},
 	];
+	const allowAnonymousPages = [
+		{
+			label: "Về chúng tôi",
+			path: "/about-us",
+		},
+		{
+			label: "Liên hệ",
+			path: "/contact",
+		},
+	];
+
+	const pages =
+		appUser && appUser.data
+			? [...protectedPages, ...allowAnonymousPages]
+			: [...allowAnonymousPages];
 	return (
 		<Toolbar>
 			<Typography
@@ -15,11 +32,12 @@ export default function NavBar() {
 				sx={{
 					fontFamily: "monospace",
 					fontWeight: 500,
-					letterSpacing: ".1rem",
 					color: "inherit",
 					textDecoration: "none",
 					display: "flex",
 					flexDirection: "row",
+					justifyContent: "space-around",
+					width: "30rem",
 				}}
 			>
 				{pages.map((page) => (
