@@ -41,10 +41,10 @@ const DonationWidget = ({ campaignId, unitOfMeasurement }) => {
                     sx={{ fontWeight: "bold", color: "primary.main" }}
                     gutterBottom
                 >
-                    Make a Donation
+                    Quyên góp cho chiến dịch
                 </Typography>
                 <TextField
-                    label="Your Name"
+                    label="Tên của bạn"
                     variant="outlined"
                     fullWidth
                     margin="normal"
@@ -52,7 +52,7 @@ const DonationWidget = ({ campaignId, unitOfMeasurement }) => {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <TextField
-                    label={`Donation Amount (${unitOfMeasurement.toUpperCase()})`}
+                    label={`Số tiền quyên góp (${unitOfMeasurement.toUpperCase()})`}
                     variant="outlined"
                     fullWidth
                     margin="normal"
@@ -68,7 +68,7 @@ const DonationWidget = ({ campaignId, unitOfMeasurement }) => {
                     type="text"
                 />
                 <TextField
-                    label="Message (optional)"
+                    label="Lời nhắn (nếu có)"
                     variant="outlined"
                     fullWidth
                     margin="normal"
@@ -89,7 +89,7 @@ const DonationWidget = ({ campaignId, unitOfMeasurement }) => {
                     onClick={handleDonation}
                     disabled={donating}
                 >
-                    {donating ? "Processing..." : "Donate Now"}
+                    {donating ? "Processing..." : "Quyên góp ngay"}
                 </Button>
             </Box>
         </Container>

@@ -89,7 +89,7 @@ export default function CampaignsListPage() {
 							},
 						}}
 					>
-						Add campaign
+						Tạo chiến dịch từ thiện
 					</Box>
 				</Link>
 				<Box

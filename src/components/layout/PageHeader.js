@@ -11,7 +11,7 @@ export default function PageHeader() {
 		<AppBar
 			sx={{
 				position: "static",
-				backgroundColor: "#6DE219",
+				backgroundColor: "#4CAF50",
 				display: "flex",
 				flexDirection: "row",
 				justifyContent: "space-between",

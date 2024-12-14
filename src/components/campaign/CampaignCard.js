@@ -15,14 +15,16 @@ import StarIcon from "@mui/icons-material/Star";
 import { AccessTime } from "@mui/icons-material";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import DonationWidget from "../widget/DonationWidget";
-import defaultCampaignImage from "../../assets/icons/default-campaign-card-image.png";
 
 const CampaignCard = ({ campaign, goToDetailPage }) => {
 	const progress = (campaign.achievedAmount / campaign.goalAmount) * 100;
 	const [openDialog, setOpenDialog] = useState(false);
-	const imageSource = campaign.proofsUrl && campaign.proofsUrl.split(",")[1];
-	const imageBackgroundCard = imageSource ? imageSource : defaultCampaignImage;
-
+	const imageBackgroundCard =
+		campaign.proofsUrl &&
+		typeof campaign.proofsUrl === "string" &&
+		campaign.proofsUrl.includes(",")
+			? campaign.proofsUrl.split(",")[1]
+			: null;
 	const handleOpenDialog = () => {
 		setOpenDialog(true);
 	};
@@ -72,7 +74,7 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 				</Typography>
 
 				<Typography variant='body2' color='text.secondary'>
-					Mục tiêu: ${campaign.goalAmount.toLocaleString()}{" "}
+					Mục tiêu: <strong>{campaign.goalAmount.toLocaleString()} </strong>
 					{campaign.unitOfMeasurement}
 				</Typography>
 				<Typography variant='body2' color='text.secondary'>
