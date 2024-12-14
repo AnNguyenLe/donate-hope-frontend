@@ -6,13 +6,13 @@ import CampaignDetail from "../../components/campaign/CampaignDetail";
 import CommentSection from "../../components/comment/CommentSection";
 import DonationWidget from "../../components/widget/DonationWidget";
 import RatingSection from "../../components/rating/RatingSection";
-import CampaignPhotos from "../../components/campaign/CampaignPhotos";
+import DonationReport from "../../components/report/DonationReport";
 
 const CampaignDetailPage = () => {
     const [campaign, setCampaign] = useState(null);
     const [proofUrls, setProofUrls] = useState([]);
 
-    const { id } = useParams();
+  const { id } = useParams();
 
     const fetchCampaignDetail = useCallback(async () => {
         try {
@@ -30,37 +30,38 @@ const CampaignDetailPage = () => {
         }
     }, [id]);
 
-    useEffect(() => {
-        fetchCampaignDetail();
-    }, [fetchCampaignDetail]);
+  useEffect(() => {
+    fetchCampaignDetail();
+  }, [fetchCampaignDetail]);
 
-    if (!campaign) {
-        return <Typography>Loading campaign details...</Typography>;
-    }
+  if (!campaign) {
+    return <Typography>Loading campaign details...</Typography>;
+  }
 
-    return (
-        <Container
-            maxWidth={false}
-            className="pt-6"
-            sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                backgroundSize: "cover",
-            }}
-        >
-            <Box sx={{ width: "70%" }}>
-                <CampaignDetail campaign={campaign} proofUrls={proofUrls} />
-                <RatingSection campaignId={id} />
-                <CommentSection campaignId={id} />
-            </Box>
-            <Box sx={{ width: "28%" }}>
-                <DonationWidget
-                    campaignId={id}
-                    unitOfMeasurement={campaign.unitOfMeasurement}
-                />
-            </Box>
-        </Container>
-    );
+  return (
+    <Container
+      maxWidth={false}
+      className="pt-6"
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        backgroundSize: "cover",
+      }}
+    >
+      <Box sx={{ width: "70%" }}>
+        <CampaignDetail campaign={campaign} proofUrls={proofUrls} />
+        <RatingSection campaignId={id} />
+        <CommentSection campaignId={id} />
+        <DonationReport campaignId={id} />
+      </Box>
+      <Box sx={{ width: "28%" }}>
+        <DonationWidget
+          campaignId={id}
+          unitOfMeasurement={campaign.unitOfMeasurement}
+        />
+      </Box>
+    </Container>
+  );
 };
 
 export default CampaignDetailPage;

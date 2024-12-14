@@ -22,6 +22,8 @@ const CampaignContributionDetailPage = () => {
         amount={amount}
         unitOfMeasurement={unitOfMeasurement}
         campaignId={campaignId}
+        name={name}
+        message={message}
       />
     </Container>
   );

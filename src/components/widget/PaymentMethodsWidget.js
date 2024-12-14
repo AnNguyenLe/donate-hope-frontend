@@ -9,20 +9,22 @@ import EWalletQRCode from "../../assets/qrCodes/momo-qr-code.png";
 import axiosInstance from "../../utils/axiosInstance";
 import AlertComponent from "../../pages/campaignContribution/AlertCampaignContribution";
 
-const PaymentMethodsWidget = ({ amount, unitOfMeasurement, campaignId }) => {
+const PaymentMethodsWidget = ({ amount, unitOfMeasurement, name, message, campaignId }) => {
     const [selectedMethod, setSelectedMethod] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const [alertSeverity, setAlertSeverity] = useState("success");
     const navigate = useNavigate();
 
-    const onSubmit = async () => {
-        const data = {
-            amount: amount,
-            unitOfMeasurement: unitOfMeasurement,
-            contributionMethod: selectedMethod,
-            campaignId: campaignId,
-        };
+  const onSubmit = async () => {
+    const data = {
+      amount: amount,
+      unitOfMeasurement: unitOfMeasurement,
+      contributionMethod: selectedMethod,
+      donatorName: name,
+      message: message,
+      campaignId: campaignId,
+    };
 
         try {
             await axiosInstance.post("/campaign-contribution/create", data);
