@@ -39,8 +39,8 @@ export default function CampaignUpdate({ campaign, onUpdate }) {
       );
       alert("Campaign updated successfully!");
       onUpdate(response.data);
-      navigate(`/campaign/${campaign.id}`);
       handleClose();
+      window.location.href = `/campaign/${campaign.id}`;
     } catch (error) {
       console.error("Error updating campaign:", error);
       alert("Failed to update campaign.");

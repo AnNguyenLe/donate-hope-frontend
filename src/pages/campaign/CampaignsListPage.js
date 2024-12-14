@@ -68,31 +68,33 @@ export default function CampaignsListPage() {
 					boxSizing: "border-box",
 				}}
 			>
-				<Link to='/campaign/create'>
-					<Box
-						sx={{
-							display: "inline-block",
-							padding: "10px 20px",
-							borderRadius: "4px",
-							backgroundColor: "primary.main",
-							color: "white",
-							textAlign: "center",
-							cursor: "pointer",
-							fontWeight: "bold",
-							fontSize: "16px",
-							boxShadow: 2,
-							"&:hover": {
-								backgroundColor: "primary.dark",
-								boxShadow: 6,
-							},
-							"&:active": {
-								backgroundColor: "primary.light",
-							},
-						}}
-					>
-						Add campaign
-					</Box>
-				</Link>
+				{isCharityAppUser && 
+					<Link to='/campaign/create'>
+						<Box
+							sx={{
+								display: "inline-block",
+								padding: "10px 20px",
+								borderRadius: "4px",
+								backgroundColor: "primary.main",
+								color: "white",
+								textAlign: "center",
+								cursor: "pointer",
+								fontWeight: "bold",
+								fontSize: "16px",
+								boxShadow: 2,
+								"&:hover": {
+									backgroundColor: "primary.dark",
+									boxShadow: 6,
+								},
+								"&:active": {
+									backgroundColor: "primary.light",
+								},
+							}}
+						>
+							Add campaign
+						</Box>
+					</Link>
+				}
 				<Box
 					sx={{
 						width: "40%",
