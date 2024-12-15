@@ -6,49 +6,63 @@ import { Link, useNavigate } from "react-router-dom";
 
 import DatePickerField from "../../components/shared/DatePickerField";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpCharity } from "../../store";
+import { resetError, signUpCharity } from "../../store";
 
 function CharityRegisterPage() {
-    const [activeStep, setActiveStep] = useState(0);
+	const [activeStep, setActiveStep] = useState(0);
     const [showPassword] = useState(false);
-    const {
-        register,
-        handleSubmit,
-        getValues,
-        control,
-        formState: { errors, isValid },
-        trigger,
-    } = useForm({ mode: "onChange", reValidateMode: "onChange" });
-    const dispatch = useDispatch();
-    const accessToken = useSelector(
-        (state) => state.appUser?.data?.accessToken
-    );
-    const navigate = useNavigate();
+	const {
+		register,
+		handleSubmit,
+		getValues,
+		control,
+		formState: { errors, isValid },
+		trigger,
+	} = useForm({ mode: "onChange", reValidateMode: "onChange" });
+	const dispatch = useDispatch();
+	const accessToken = useSelector((state) => state.appUser?.data?.accessToken);
+	const navigate = useNavigate();
 
-    useEffect(() => {
-        if (accessToken) {
-            navigate("/");
-        }
-    }, [accessToken, navigate]);
+	useEffect(() => {
+		if (accessToken) {
+			navigate("/");
+		}
+	}, [accessToken, navigate]);
 
-    const steps = [
-        "Đại diện pháp lý",
-        "Thông tin tổ chức từ thiện",
-        "Thông tin đăng nhập",
-    ];
+	const steps = [
+		"Đại diện pháp lý",
+		"Thông tin tổ chức từ thiện",
+		"Thông tin đăng nhập",
+	];
 
-    const onSubmit = (data) => {
-        dispatch(signUpCharity(data));
-    };
+	const onSubmit = (data) => {
+		dispatch(signUpCharity(data));
+	};
 
-    const handleNext = async () => {
-        const isStepValid = await trigger();
-        if (isStepValid) {
-            setActiveStep((prevStep) => prevStep + 1);
-        }
-    };
+	const handleNext = async () => {
+		const isStepValid = await trigger();
+		if (isStepValid) {
+			setActiveStep((prevStep) => prevStep + 1);
+		}
+	};
 
-    const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
+	const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
+
+	const backendError = useSelector((state) => state.appUser?.error);
+
+	const [responseError, setResponseError] = useState(null);
+
+	useEffect(() => {
+		if (backendError) {
+			setResponseError(backendError);
+		} else {
+			setResponseError(null);
+		}
+	}, [backendError]);
+
+	useEffect(() => {
+		dispatch(resetError());
+	}, [dispatch]);
 
     const renderStepContent = () => {
         switch (activeStep) {
@@ -567,12 +581,12 @@ function CharityRegisterPage() {
                 ))}
             </Stepper>
 
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                style={{ width: "50%" }}
-                className="pt-8"
-            >
-                {renderStepContent()}
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				style={{ width: "50%" }}
+				className='pt-8'
+			>
+				{renderStepContent()}
 
                 <Box className="flex justify-between mt-12">
                     {activeStep !== 2 && (

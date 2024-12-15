@@ -11,15 +11,18 @@ import {
 	DialogContent,
 	Rating,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import { AccessTime } from "@mui/icons-material";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import DonationWidget from "../widget/DonationWidget";
 import defaultCardImage from '../../assets/icons/default-campaign-card-image.png';
+import { useSelector } from "react-redux";
 
-const CampaignCard = ({ campaign, goToDetailPage }) => {
+const CampaignCard = ({ campaign }) => {
 	const progress = (campaign.achievedAmount / campaign.goalAmount) * 100;
 	const [openDialog, setOpenDialog] = useState(false);
+
 	const imageBackgroundCard =
 		campaign.proofsUrl &&
 		typeof campaign.proofsUrl === "string" &&
@@ -34,6 +37,9 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 		setOpenDialog(false);
 	};
 
+	const isUserLoggedIn = Boolean(useSelector((state) => state.appUser.data));
+
+	const navigate = useNavigate();
 	return (
 		<Card
 			sx={{
@@ -95,26 +101,32 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 					<CircularProgressWithLabel value={progress} />
 				</Box>
 
-				<Box sx={{ display: "flex", alignItems: "center", marginTop: 1 }}>
-					<AccessTime sx={{ color: "gray" }} />
-					<Typography
-						variant='body2'
-						color='text.secondary'
-						sx={{ marginLeft: 1 }}
-					>
-						<strong>Ngày bắt đầu:</strong>{" "}
-						{new Date(campaign.expectingStartDate).toLocaleDateString()}
-					</Typography>
-					<Typography
-						variant='body2'
-						color='text.secondary'
-						sx={{ marginLeft: 1 }}
-						textAlign='center'
-					>
-						<strong>Ngày kết thúc:</strong>{" "}
-						{new Date(campaign.expectingEndDate).toLocaleDateString()}
-					</Typography>
-				</Box>
+                <Box
+                    sx={{ display: "flex", alignItems: "center", marginTop: 1 }}
+                >
+                    <AccessTime sx={{ color: "gray" }} />
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginLeft: 1 }}
+                    >
+                        <strong>Ngày bắt đầu:</strong>{" "}
+                        {new Date(
+                            campaign.expectingStartDate
+                        ).toLocaleDateString("en-GB")}
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginLeft: 1 }}
+                        textAlign="center"
+                    >
+                        <strong>Ngày kết thúc:</strong>{" "}
+                        {new Date(
+                            campaign.expectingEndDate
+                        ).toLocaleDateString("en-GB")}
+                    </Typography>
+                </Box>
 
 				<Box sx={{ display: "flex", alignItems: "center", marginTop: 1 }}>
 					<StarIcon sx={{ marginRight: 1, color: "warning.main" }} />
@@ -140,7 +152,10 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 						variant='contained'
 						color='primary'
 						sx={{ width: "45%" }}
-						onClick={goToDetailPage}
+						onClick={isUserLoggedIn
+							? () => navigate(`/campaign/${campaign.id}`)
+							: () => navigate(`/signin`)
+						}
 					>
 						CHI TIẾT
 					</Button>
@@ -148,7 +163,10 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 						variant='contained'
 						color='secondary'
 						sx={{ width: "45%" }}
-						onClick={handleOpenDialog}
+						onClick= {isUserLoggedIn
+							? handleOpenDialog
+							: () => navigate(`/signin`)
+						}
 					>
 						QUYÊN GÓP
 					</Button>

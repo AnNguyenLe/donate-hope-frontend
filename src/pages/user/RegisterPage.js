@@ -3,27 +3,43 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import DatePickerField from "../../components/shared/DatePickerField";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpUser } from "../../store";
-import { useEffect } from "react";
+import { resetError, signUpUser } from "../../store";
+import { useEffect, useState } from "react";
 
 function RegisterPage() {
-    const {
-        register,
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm();
-    const dispatch = useDispatch();
-    const accessToken = useSelector(
-        (state) => state.appUser?.data?.accessToken
-    );
-    const navigate = useNavigate();
+	const {
+		register,
+		handleSubmit,
+		control,
+		getValues,
+		formState: { errors },
+	} = useForm();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-    useEffect(() => {
-        if (accessToken) {
-            navigate("/");
-        }
-    }, [accessToken, navigate]);
+	const accessToken = useSelector((state) => state.appUser?.data?.accessToken);
+
+	useEffect(() => {
+		if (accessToken) {
+			navigate("/");
+		}
+	}, [accessToken, navigate]);
+
+	const backendError = useSelector((state) => state.appUser?.error);
+
+	const [responseError, setResponseError] = useState(null);
+
+	useEffect(() => {
+		if (backendError) {
+			setResponseError(backendError);
+		} else {
+			setResponseError(null);
+		}
+	}, [backendError]);
+
+	useEffect(() => {
+		dispatch(resetError());
+	}, [dispatch]);
 
     const onSubmit = (formData) => {
         console.log(formData);
