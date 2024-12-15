@@ -43,8 +43,12 @@ export default function CampaignUpdate({ campaign, onUpdate }) {
             setSnackbarSeverity("success");
             setSnackbarOpen(true);
             onUpdate(response.data);
-            handleClose();
-            window.location.href = `/campaign/${campaign.id}`;
+
+            setTimeout(() => {
+                handleClose();
+                window.location.href = `/campaign/${campaign.id}`;
+            }, 1000);
+
         } catch (error) {
             console.error("Cập nhật thông tin chiến dịch thất bại:", error);
             setSnackbarMessage(
