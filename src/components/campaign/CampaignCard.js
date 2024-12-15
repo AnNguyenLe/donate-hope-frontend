@@ -95,26 +95,32 @@ const CampaignCard = ({ campaign, goToDetailPage }) => {
 					<CircularProgressWithLabel value={progress} />
 				</Box>
 
-				<Box sx={{ display: "flex", alignItems: "center", marginTop: 1 }}>
-					<AccessTime sx={{ color: "gray" }} />
-					<Typography
-						variant='body2'
-						color='text.secondary'
-						sx={{ marginLeft: 1 }}
-					>
-						<strong>Ngày bắt đầu:</strong>{" "}
-						{new Date(campaign.expectingStartDate).toLocaleDateString()}
-					</Typography>
-					<Typography
-						variant='body2'
-						color='text.secondary'
-						sx={{ marginLeft: 1 }}
-						textAlign='center'
-					>
-						<strong>Ngày kết thúc:</strong>{" "}
-						{new Date(campaign.expectingEndDate).toLocaleDateString()}
-					</Typography>
-				</Box>
+                <Box
+                    sx={{ display: "flex", alignItems: "center", marginTop: 1 }}
+                >
+                    <AccessTime sx={{ color: "gray" }} />
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginLeft: 1 }}
+                    >
+                        <strong>Ngày bắt đầu:</strong>{" "}
+                        {new Date(
+                            campaign.expectingStartDate
+                        ).toLocaleDateString("en-GB")}
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginLeft: 1 }}
+                        textAlign="center"
+                    >
+                        <strong>Ngày kết thúc:</strong>{" "}
+                        {new Date(
+                            campaign.expectingEndDate
+                        ).toLocaleDateString("en-GB")}
+                    </Typography>
+                </Box>
 
 				<Box sx={{ display: "flex", alignItems: "center", marginTop: 1 }}>
 					<StarIcon sx={{ marginRight: 1, color: "warning.main" }} />
