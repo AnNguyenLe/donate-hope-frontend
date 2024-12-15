@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { appUserReducer, signOutUser } from "./slices/appUserSlice";
+import { appUserReducer, signOutUser, resetError } from "./slices/appUserSlice";
 import { campaignsReducer } from "./slices/campaignsSlice";
 
 const store = configureStore({
@@ -15,4 +15,4 @@ export { store };
 export * from "./thunks/appUser/auth";
 export * from "./thunks/campaigns/fetchCampaigns";
 
-export { signOutUser };
+export { signOutUser, resetError };

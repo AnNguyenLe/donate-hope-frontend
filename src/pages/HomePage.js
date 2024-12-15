@@ -31,7 +31,7 @@ export default function HomePage() {
 
             fetchCampaigns();
         } else {
-            console.log("Token is not available yet.");
+            console.error("Token is not available yet.");
         }
     }, [token]);
 
