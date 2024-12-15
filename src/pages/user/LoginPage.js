@@ -92,6 +92,7 @@ function LoginPage() {
                         }}
                         type="email"
                         {...register("email")}
+                        
                     />
                 </Box>
 

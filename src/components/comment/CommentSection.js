@@ -139,10 +139,15 @@ const CommentSection = ({ campaignId }) => {
                                         variant="body1"
                                         sx={{ textAlign: "end" }}
                                     >
-                                        {formatDistanceToNow(
-                                            new Date(comment.createdAt),
-                                            { addSuffix: true, locale: vi }
-                                        )}
+                                        {comment.createdAt
+                                            ? formatDistanceToNow(
+                                                  new Date(comment.createdAt),
+                                                  {
+                                                      addSuffix: true,
+                                                      locale: vi,
+                                                  }
+                                              )
+                                            : "bây giờ"}
                                     </Typography>
                                 </Box>
                             </ListItem>
