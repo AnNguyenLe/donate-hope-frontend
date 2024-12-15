@@ -1,388 +1,667 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Input, Button } from "@mui/material";
+import { Box, Input, Button, Typography, TextField, Grid } from "@mui/material";
 import { Stepper, Step, StepLabel } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+
 import DatePickerField from "../../components/shared/DatePickerField";
 import { useDispatch, useSelector } from "react-redux";
 import { resetError, signUpCharity } from "../../store";
 
 function CharityRegisterPage() {
-	const [activeStep, setActiveStep] = useState(0);
-	const {
-		register,
-		handleSubmit,
-		getValues,
-		control,
-		formState: { errors, isValid },
-		trigger,
-	} = useForm({ mode: "onChange", reValidateMode: "onChange" });
-	const dispatch = useDispatch();
-	const accessToken = useSelector((state) => state.appUser?.data?.accessToken);
-	const navigate = useNavigate();
+    const [activeStep, setActiveStep] = useState(0);
+    const [showPassword] = useState(false);
+    const {
+        register,
+        handleSubmit,
+        getValues,
+        control,
+        formState: { errors, isValid },
+        trigger,
+    } = useForm({ mode: "onChange", reValidateMode: "onChange" });
+    const dispatch = useDispatch();
+    const accessToken = useSelector(
+        (state) => state.appUser?.data?.accessToken
+    );
+    const navigate = useNavigate();
 
-	useEffect(() => {
-		if (accessToken) {
-			navigate("/");
-		}
-	}, [accessToken, navigate]);
+    useEffect(() => {
+        if (accessToken) {
+            navigate("/");
+        }
+    }, [accessToken, navigate]);
 
-	const steps = [
-		"Đại diện pháp lý",
-		"Thông tin tổ chức từ thiện",
-		"Thông tin đăng nhập",
-	];
+    const steps = [
+        "Đại diện pháp lý",
+        "Thông tin tổ chức từ thiện",
+        "Thông tin đăng nhập",
+    ];
 
-	const onSubmit = (data) => {
-		dispatch(signUpCharity(data));
-	};
+    const onSubmit = (data) => {
+        dispatch(signUpCharity(data));
+    };
 
-	const handleNext = async () => {
-		const isStepValid = await trigger();
-		if (isStepValid) {
-			setActiveStep((prevStep) => prevStep + 1);
-		}
-	};
+    const handleNext = async () => {
+        const isStepValid = await trigger();
+        if (isStepValid) {
+            setActiveStep((prevStep) => prevStep + 1);
+        }
+    };
 
-	const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
+    const handleBack = () => setActiveStep((prevStep) => prevStep - 1);
 
-	const backendError = useSelector((state) => state.appUser?.error);
+    const backendError = useSelector((state) => state.appUser?.error);
 
-	const [responseError, setResponseError] = useState(null);
+    const [responseError, setResponseError] = useState(null);
 
-	useEffect(() => {
-		if (backendError) {
-			setResponseError(backendError);
-		} else {
-			setResponseError(null);
-		}
-	}, [backendError]);
+    useEffect(() => {
+        if (backendError) {
+            setResponseError(backendError);
+        } else {
+            setResponseError(null);
+        }
+    }, [backendError]);
 
-	useEffect(() => {
-		dispatch(resetError());
-	}, [dispatch]);
+    useEffect(() => {
+        dispatch(resetError());
+    }, [dispatch]);
 
-	const renderStepContent = () => {
-		switch (activeStep) {
-			case 0:
-				return (
-					<Box className='flex flex-col justify-between'>
-						{responseError && (
-							<Box>
-								<Box
-									sx={{
-										color: "red",
-										textAlign: "center",
-										marginBottom: "16px",
-									}}
-								>
-									{responseError.title}
-								</Box>
-								<Box
-									sx={{
-										color: "red",
-										textAlign: "center",
-										marginBottom: "16px",
-									}}
-								>
-									{responseError.detail}
-								</Box>
-							</Box>
-						)}
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Tên</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='text'
-								{...register("repFirstName", {
-									required: "Xin vui lòng nhập tên",
-								})}
-							/>
-							{errors.firstName && <span>{errors.firstName.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Họ và tên lót</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='text'
-								{...register("repLastName", {
-									required: "Xin vui lòng nhập họ và tên lót",
-								})}
-							/>
-							{errors.lastName && <span>{errors.lastName.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Ngày sinh</label>
+    const renderStepContent = () => {
+        switch (activeStep) {
+            case 0:
+                return (
+                    <Box className="flex flex-col justify-between">
+                        {responseError && (
+                            <Box>
+                                <Box
+                                    sx={{
+                                        color: "red",
+                                        textAlign: "center",
+                                        marginBottom: "16px",
+                                    }}
+                                >
+                                    {responseError.title}
+                                </Box>
+                                <Box
+                                    sx={{
+                                        color: "red",
+                                        textAlign: "center",
+                                        marginBottom: "16px",
+                                    }}
+                                >
+                                    {responseError.detail}
+                                </Box>
+                            </Box>
+                        )}
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "white",
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: "90%",
+                                    maxWidth: "500px",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <Typography
+                                    variant="h5"
+                                    fontWeight="bold"
+                                    my={4}
+                                    color="primary.main"
+                                >
+                                    Đại diện pháp lý
+                                </Typography>
+                                <Box display="flex" gap={2} mb={2}>
+                                    <TextField
+                                        label="Tên"
+                                        fullWidth
+                                        type="text"
+                                        {...register("repFirstName", {
+                                            required: "Xin vui lòng nhập tên",
+                                        })}
+                                        variant="filled"
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.repFirstName}
+                                        helperText={
+                                            errors.repFirstName?.message
+                                        }
+                                    />
+                                    <TextField
+                                        label="Họ và tên lót"
+                                        fullWidth
+                                        {...register("repLastName", {
+                                            required:
+                                                "Xin vui lòng nhập họ và tên lót",
+                                        })}
+                                        variant="filled"
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.repLastName}
+                                        helperText={errors.repLastName?.message}
+                                    />
+                                </Box>
+                                <Box
+                                    display="flex"
+                                    flexDirection="column"
+                                    mb={2}
+                                >
+                                    <Box
+                                        display="flex"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                        mb={1}
+                                    >
+                                        <Box
+                                            variant="body1"
+                                            width="240px"
+                                            height="60px"
+                                            display="flex"
+                                            textAlign="start"
+                                            alignItems="center"
+                                            justifyContent="flex-start"
+                                            borderRadius={1}
+                                            sx={{
+                                                backgroundColor: "#F0F0F0",
+                                            }}
+                                        >
+                                            <Typography
+                                                sx={{ ml: 1, color: "gray" }}
+                                            >
+                                                Ngày sinh
+                                            </Typography>
+                                        </Box>
+                                        <DatePickerField
+                                            control={control}
+                                            name="repDateOfBirth"
+                                            label="Chọn ngày sinh"
+                                            rules={{
+                                                required:
+                                                    "Xin vui lòng nhập ngày sinh",
+                                            }}
+                                            errors={errors}
+                                        />
+                                    </Box>
+                                    {errors.repDateOfBirth && (
+                                        <Typography
+                                            color="error"
+                                            sx={{
+                                                textAlign: "end",
+                                                fontSize: "0.75rem",
+                                            }}
+                                        >
+                                            {errors.repDateOfBirth.message}
+                                        </Typography>
+                                    )}
+                                </Box>
 
-							<DatePickerField
-								control={control}
-								name='repDateOfBirth'
-								label='Date of birth'
-								rules={{
-									required: "Xin vui lòng nhập ngày sinh",
-								}}
-								errors={errors}
-							/>
-							{errors.dateOfBirth && <span>{errors.dateOfBirth.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Email</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='email'
-								{...register("repEmail", {
-									required: "Xin vui lòng nhập Email",
-									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-										message: "Địa chỉ email không hợp lệ",
-									},
-								})}
-							/>
-							{errors.repEmail && <span>{errors.repEmail.message}</span>}
-						</Box>
-					</Box>
-				);
-			case 1:
-				return (
-					<Box className='flex flex-col justify-between'>
-						{responseError && (
-							<Box>
-								<Box
-									sx={{
-										color: "red",
-										textAlign: "center",
-										marginBottom: "16px",
-									}}
-								>
-									{responseError.title}
-								</Box>
-								<Box
-									sx={{
-										color: "red",
-										textAlign: "center",
-										marginBottom: "16px",
-									}}
-								>
-									{responseError.detail}
-								</Box>
-							</Box>
-						)}
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Tên tổ chức</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='text'
-								{...register("orgName", {
-									required: "Xin vui lòng nhập tên tổ chức",
-								})}
-							/>
-							{errors.orgName && <span>{errors.orgName.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Địa chỉ</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='text'
-								{...register("orgAddress", {
-									required: "Xin vui lòng nhập địa chỉ",
-								})}
-							/>
-							{errors.orgAddress && <span>{errors.orgAddress.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Số điện thoại</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='tel'
-								{...register("orgPhone", {
-									required: "Xin vui lòng nhập số điện thoại",
-								})}
-							/>
-							{errors.orgPhone && <span>{errors.orgPhone.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Email (bắt buộc)</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='email'
-								{...register("orgEmail", {
-									required: "Email is required",
-									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-										message: "Địa chỉ email không hợp lệ",
-									},
-								})}
-							/>
-							{errors.orgEmail && <span>{errors.orgEmail.message}</span>}
-						</Box>
-					</Box>
-				);
-			case 2:
-				return (
-					<Box className='flex flex-col justify-between'>
-						{responseError && (
-							<Box>
-								<Box
-									sx={{
-										color: "red",
-										textAlign: "center",
-										marginBottom: "16px",
-									}}
-								>
-									{responseError.title}
-								</Box>
-								<Box
-									sx={{
-										color: "red",
-										textAlign: "center",
-										marginBottom: "16px",
-									}}
-								>
-									{responseError.detail}
-								</Box>
-							</Box>
-						)}
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Đăng nhập bằng Email</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='email'
-								value={getValues("orgEmail")}
-								disabled
-							/>
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Mật khẩu</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='password'
-								{...register("password", {
-									required: "Mật khẩu là bắt buộc",
-									minLength: {
-										value: 8,
-										message: "Mật khẩu phải có ít nhất 8 ký tự",
-									},
-									pattern: {
-										value: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])/,
-										message:
-											"Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt",
-									},
-								})}
-							/>
-							{errors.password && <span>{errors.password.message}</span>}
-						</Box>
-						<Box className='pt-12 flex justify-between'>
-							<label className='text-xl'>Xác nhận mật khẩu</label>
-							<Input
-								sx={{ width: "70%" }}
-								type='password'
-								{...register("confirmPassword", {
-									required: "Xin vui lòng nhập lại mật khẩu",
-									validate: (value) =>
-										value === getValues("password") || "Mật khẩu không khớp",
-								})}
-							/>
-							{errors.confirmPassword && (
-								<span>{errors.confirmPassword.message}</span>
-							)}
-						</Box>
-					</Box>
-				);
-			default:
-				return null;
-		}
-	};
+                                <Box display="flex" mb={2}>
+                                    <TextField
+                                        label="Email"
+                                        fullWidth
+                                        variant="filled"
+                                        type="email"
+                                        {...register("repEmail", {
+                                            required: "Xin vui lòng nhập Email",
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                message:
+                                                    "Địa chỉ email không hợp lệ",
+                                            },
+                                        })}
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.repEmail}
+                                        helperText={errors.repEmail?.message}
+                                    />
+                                </Box>
+                            </Box>
+                        </Grid>
+                    </Box>
+                );
+            case 1:
+                return (
+                    <Box className="flex flex-col justify-between">
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "white",
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: "90%",
+                                    maxWidth: "500px",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <Typography
+                                    variant="h5"
+                                    fontWeight="bold"
+                                    my={4}
+                                >
+                                    Tên tổ chức
+                                </Typography>
+                                <Box display="flex" gap={2} mb={2}>
+                                    <TextField
+                                        label="Tên"
+                                        fullWidth
+                                        type="text"
+                                        {...register("orgName", {
+                                            required:
+                                                "Xin vui lòng nhập tên tổ chức",
+                                        })}
+                                        variant="filled"
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.orgName}
+                                        helperText={errors.orgName?.message}
+                                    />
+                                </Box>
 
-	// Submit button styled similarly to the provided register page
-	return (
-		<Box
-			className='flex flex-col justify-center items-center pt-10'
-			sx={{
-				fontFamily: "Roboto, monospace, sans-serif",
-				fontWeight: 700,
-				letterSpacing: ".1rem",
-				color: "inherit",
-			}}
-		>
-			<h3 className='text-4xl'>Đăng ký tổ chức từ thiện</h3>
-			<Stepper
-				activeStep={activeStep}
-				alternativeLabel
-				sx={{ width: "80%", marginTop: 2 }}
-			>
-				{steps.map((label, index) => (
-					<Step key={label}>
-						<StepLabel>{label}</StepLabel>
-					</Step>
-				))}
-			</Stepper>
+                                <Box display="flex" mb={2}>
+                                    <TextField
+                                        label="Địa chỉ"
+                                        fullWidth
+                                        type="text"
+                                        {...register("orgAddress", {
+                                            required:
+                                                "Xin vui lòng nhập địa chỉ",
+                                        })}
+                                        variant="filled"
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.orgAddress}
+                                        helperText={errors.orgAddress?.message}
+                                    />
+                                </Box>
 
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				style={{ width: "50%" }}
-				className='pt-8'
-			>
-				{renderStepContent()}
+                                <Box display="flex" mb={2}>
+                                    <TextField
+                                        label="Số điện thoại"
+                                        fullWidth
+                                        type="tel"
+                                        {...register("orgPhone", {
+                                            required:
+                                                "Xin vui lòng nhập số điện thoại",
+                                        })}
+                                        variant="filled"
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.orgPhone}
+                                        helperText={errors.orgPhone?.message}
+                                    />
+                                </Box>
 
-				<Box className='flex justify-between mt-12'>
-					<Button
-						disabled={activeStep === 0}
-						onClick={handleBack}
-						variant='outlined'
-						color='primary'
-						sx={{ width: "30%" }}
-					>
-						Back
-					</Button>
-					{activeStep !== 2 && (
-						<Button
-							variant='contained'
-							color='primary'
-							onClick={handleNext}
-							sx={{
-								width: "30%",
-								backgroundColor: "black",
-								":hover": {
-									backgroundColor: "#6DE219",
-									boxShadow: "10px 10px black",
-								},
-							}}
-							disabled={!isValid || Object.keys(errors).length > 0}
-						>
-							Next
-						</Button>
-					)}
-				</Box>
+                                <Box display="flex" mb={2}>
+                                    <TextField
+                                        label="Email (bắt buộc)"
+                                        fullWidth
+                                        variant="filled"
+                                        type="email"
+                                        {...register("orgEmail", {
+                                            required: "Xin vui lòng nhập Email",
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                message:
+                                                    "Địa chỉ email không hợp lệ",
+                                            },
+                                        })}
+                                        InputProps={{
+                                            disableUnderline: true,
+                                        }}
+                                        error={!!errors.orgEmail}
+                                        helperText={errors.orgEmail?.message}
+                                    />
+                                </Box>
+                            </Box>
+                        </Grid>
+                    </Box>
+                );
+            case 2:
+                return (
+                    <Box className="flex flex-col justify-between">
+                        <Box
+                            sx={{
+                                width: "100%",
+                                maxWidth: 400,
+                                margin: "5rem auto",
+                                padding: 4,
+                                background: "white",
+                                borderRadius: "1rem",
+                                boxShadow: 3,
+                                textAlign: "center",
+                            }}
+                        >
+                            <Typography
+                                variant="h5"
+                                sx={{
+                                    fontWeight: "bold",
+                                    marginBottom: 5,
+                                    color: "primary.main",
+                                }}
+                            >
+                                Đăng nhập
+                            </Typography>
 
-				{activeStep === steps.length - 1 && (
-					<Box
-						className='text-2xl mt-16 text-center'
-						sx={{
-							border: ".2rem solid black",
-							borderRadius: "4px",
-							backgroundColor: "black",
-							color: "white",
-							":hover": {
-								backgroundColor: "#6DE219",
-								boxShadow: "10px 10px black",
-							},
-						}}
-					>
-						<button type='submit'>Submit</button>
-					</Box>
-				)}
-				<Box
-					className='text-xl pt-8'
-					sx={{ display: "flex", justifyContent: "space-around" }}
-				>
-					<span>Bạn đã có tài khoản? </span>
-					<span className='text-blue-500 hover:border-b-4 border-solid border-blue-500'>
-						<Link to='/signin'>Đăng nhập!</Link>
-					</span>
-				</Box>
-			</form>
-		</Box>
-	);
+                            <Box sx={{ marginBottom: 2, textAlign: "left" }}>
+                                <Typography variant="body1">
+                                    Đăng nhập bằng Email
+                                </Typography>
+                                <Input
+                                    sx={{
+                                        width: "100%",
+                                        padding: "12px",
+                                        borderRadius: "1rem",
+                                        marginTop: 1,
+                                        border: "1px solid #ccc",
+                                        transition:
+                                            "border 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                                        ":focus": {
+                                            borderColor: "#4CAF50",
+                                            boxShadow:
+                                                "0 0 5px rgba(76, 175, 80, 0.5)",
+                                        },
+                                        ":before": {
+                                            display: "none",
+                                        },
+                                        ":after": {
+                                            display: "none",
+                                        },
+                                        ":hover": {
+                                            borderColor: "#4CAF50",
+                                        },
+                                    }}
+                                    type="email"
+                                    value={getValues("orgEmail")}
+                                    disabled
+                                />
+                            </Box>
+
+                            <Box sx={{ marginBottom: 2, textAlign: "left" }}>
+                                <Typography variant="body1">
+                                    Mật khẩu
+                                </Typography>
+                                <Input
+                                    sx={{
+                                        width: "100%",
+                                        padding: "12px",
+                                        borderRadius: "1rem",
+                                        marginTop: 1,
+                                        border: "1px solid #ccc",
+                                        transition:
+                                            "border 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                                        ":focus": {
+                                            borderColor: "#4CAF50",
+                                            boxShadow:
+                                                "0 0 5px rgba(76, 175, 80, 0.5)",
+                                        },
+                                        ":before": {
+                                            display: "none",
+                                        },
+                                        ":after": {
+                                            display: "none",
+                                        },
+                                        ":hover": {
+                                            borderColor: "#4CAF50",
+                                        },
+                                    }}
+                                    type={showPassword ? "text" : "password"}
+                                    {...register("password", {
+                                        required: "Xin vui lòng nhập mật khẩu",
+                                        minLength: 6,
+                                    })}
+                                />
+                                {errors.password && (
+                                    <Typography
+                                        color="error"
+                                        sx={{
+                                            textAlign: "end",
+                                            fontSize: "0.75rem",
+                                        }}
+                                    >
+                                        {errors.password.message}
+                                    </Typography>
+                                )}
+                            </Box>
+                            <Box sx={{ marginBottom: 2, textAlign: "left" }}>
+                                <Typography variant="body1">
+                                    Xác nhận mật khẩu
+                                </Typography>
+                                <Input
+                                    sx={{
+                                        width: "100%",
+                                        padding: "12px",
+                                        borderRadius: "1rem",
+                                        marginTop: 1,
+                                        border: "1px solid #ccc",
+                                        transition:
+                                            "border 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                                        ":focus": {
+                                            borderColor: "#4CAF50",
+                                            boxShadow:
+                                                "0 0 5px rgba(76, 175, 80, 0.5)",
+                                        },
+                                        ":before": {
+                                            display: "none",
+                                        },
+                                        ":after": {
+                                            display: "none",
+                                        },
+                                        ":hover": {
+                                            borderColor: "#4CAF50",
+                                        },
+                                    }}
+                                    type="password"
+                                    {...register("confirmPassword", {
+                                        required:
+                                            "Xin vui lòng nhập lại mật khẩu",
+                                        validate: (value) =>
+                                            value === getValues("password") ||
+                                            "Mật khẩu không chính xác",
+                                    })}
+                                />
+                                {errors.confirmPassword && (
+                                    <Typography
+                                        color="error"
+                                        sx={{
+                                            textAlign: "end",
+                                            fontSize: "0.75rem",
+                                        }}
+                                    >
+                                        {errors.confirmPassword.message}
+                                    </Typography>
+                                )}
+                            </Box>
+                            <Box
+                                className="flex justify-between mt-12"
+                                sx={{
+                                    gap: 2,
+                                    display:
+                                        activeStep === steps.length - 1
+                                            ? "flex"
+                                            : "block",
+                                    justifyContent:
+                                        activeStep === steps.length - 1
+                                            ? "space-between"
+                                            : "flex-start",
+                                }}
+                            >
+                                <Button
+                                    disabled={activeStep === 0}
+                                    onClick={handleBack}
+                                    variant="outlined"
+                                    color="primary"
+                                    sx={{
+                                        width: "48%",
+                                        padding: "12px",
+                                        fontWeight: "bold",
+                                        borderRadius: "1rem",
+                                        color: "primary.main",
+                                        "&:hover": {
+                                            boxShadow:
+                                                "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                        },
+                                        height: "56px",
+                                        marginTop: 3,
+                                    }}
+                                >
+                                    Quay lại
+                                </Button>
+
+                                {activeStep === steps.length - 1 && (
+                                    <Button
+                                        type="submit"
+                                        onClick={handleSubmit(onSubmit)}
+                                        sx={{
+                                            width: "48%",
+                                            padding: "12px",
+                                            fontWeight: "bold",
+                                            borderRadius: "1rem",
+                                            backgroundColor: "primary.main",
+                                            color: "white",
+                                            "&:hover": {
+                                                backgroundColor: "primary.dark",
+                                                boxShadow:
+                                                    "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                            },
+                                            marginTop: 3,
+                                        }}
+                                    >
+                                        XÁC NHẬN
+                                    </Button>
+                                )}
+                            </Box>
+                            <Typography variant="body1" mt={2}>
+                                Bạn đã có tài khoản?{" "}
+                                <Link
+                                    to="/signin"
+                                    style={{
+                                        color: "#9c27b0",
+                                        fontWeight: "bold",
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    Đăng nhập
+                                </Link>
+                            </Typography>
+                        </Box>
+                    </Box>
+                );
+            default:
+                return null;
+        }
+    };
+
+    // Submit button styled similarly to the provided register page
+    return (
+        <Box
+            className="flex flex-col justify-center items-center pt-10"
+            sx={{
+                fontFamily: "Roboto, monospace, sans-serif",
+                fontWeight: 700,
+                letterSpacing: ".1rem",
+                color: "inherit",
+            }}
+        >
+            <Typography
+                sx={{
+                    color: "primary.main",
+                    fontWeight: "bold",
+                    fontSize: "2rem",
+                }}
+                marginBottom={3}
+            >
+                Đăng ký tổ chức từ thiện
+            </Typography>
+            <Stepper
+                activeStep={activeStep}
+                alternativeLabel
+                sx={{ width: "80%", marginTop: 2 }}
+            >
+                {steps.map((label, index) => (
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
+                ))}
+            </Stepper>
+
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                style={{ width: "50%" }}
+                className="pt-8"
+            >
+                {renderStepContent()}
+
+                <Box className="flex justify-between mt-12">
+                    {activeStep !== 2 && (
+                        <Button
+                            disabled={activeStep === 0}
+                            onClick={handleBack}
+                            variant="outlined"
+                            color="primary"
+                            sx={{
+                                width: "30%",
+
+                                padding: "12px",
+                                fontWeight: "bold",
+                                borderRadius: "1rem",
+                                color: "primary.main",
+                                "&:hover": {
+                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                },
+                            }}
+                        >
+                            Quay lại
+                        </Button>
+                    )}
+                    {activeStep !== 2 && (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleNext}
+                            sx={{
+                                width: "30%",
+                                padding: "12px",
+                                fontWeight: "bold",
+                                borderRadius: "1rem",
+                                backgroundColor: "primary.main",
+                                color: "white",
+                                "&:hover": {
+                                    backgroundColor: "primary.dark",
+                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                },
+                            }}
+                            disabled={
+                                !isValid || Object.keys(errors).length > 0
+                            }
+                        >
+                            Tiếp theo
+                        </Button>
+                    )}
+                </Box>
+            </form>
+        </Box>
+    );
 }
 
 export default CharityRegisterPage;

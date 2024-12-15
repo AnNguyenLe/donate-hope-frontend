@@ -86,35 +86,36 @@ function LoginPage() {
 					Đăng nhập
 				</Typography>
 
-				<Box sx={{ marginBottom: 2, textAlign: "left" }}>
-					<Typography variant='body1'>Email</Typography>
-					<Input
-						sx={{
-							width: "100%",
-							padding: "12px",
-							borderRadius: "1rem",
-							marginTop: 1,
-							border: "1px solid #ccc",
-							transition:
-								"border 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-							":focus": {
-								borderColor: "#4CAF50",
-								boxShadow: "0 0 5px rgba(76, 175, 80, 0.5)",
-							},
-							":before": {
-								display: "none",
-							},
-							":after": {
-								display: "none",
-							},
-							":hover": {
-								borderColor: "#4CAF50",
-							},
-						}}
-						type='email'
-						{...register("email")}
-					/>
-				</Box>
+                <Box sx={{ marginBottom: 2, textAlign: "left" }}>
+                    <Typography variant="body1">Email</Typography>
+                    <Input
+                        sx={{
+                            width: "100%",
+                            padding: "12px",
+                            borderRadius: "1rem",
+                            marginTop: 1,
+                            border: "1px solid #ccc",
+                            transition:
+                                "border 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                            ":focus": {
+                                borderColor: "#4CAF50",
+                                boxShadow: "0 0 5px rgba(76, 175, 80, 0.5)",
+                            },
+                            ":before": {
+                                display: "none",
+                            },
+                            ":after": {
+                                display: "none",
+                            },
+                            ":hover": {
+                                borderColor: "#4CAF50",
+                            },
+                        }}
+                        type="email"
+                        {...register("email")}
+                        
+                    />
+                </Box>
 
 				<Box sx={{ marginBottom: 2, textAlign: "left" }}>
 					<Typography variant='body1'>Mật khẩu</Typography>
