@@ -88,7 +88,7 @@ const CommentSection = ({ campaignId }) => {
                         </Avatar>
                         <TextField
                             fullWidth
-                            label="Add a comment"
+                            label="Hãy bình luận cho chiến dịch này..."
                             variant="outlined"
                             value={newComment}
                             sx={{ marginRight: 1 }}

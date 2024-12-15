@@ -187,7 +187,7 @@ const CampaignCard = ({ campaign }) => {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleCloseDialog} color='primary'>
-						Close
+						Đóng
 					</Button>
 				</DialogActions>
 			</Dialog>

@@ -71,28 +71,6 @@ function CharityRegisterPage() {
             case 0:
                 return (
                     <Box className="flex flex-col justify-between">
-                        {responseError && (
-                            <Box>
-                                <Box
-                                    sx={{
-                                        color: "red",
-                                        textAlign: "center",
-                                        marginBottom: "16px",
-                                    }}
-                                >
-                                    {responseError.title}
-                                </Box>
-                                <Box
-                                    sx={{
-                                        color: "red",
-                                        textAlign: "center",
-                                        marginBottom: "16px",
-                                    }}
-                                >
-                                    {responseError.detail}
-                                </Box>
-                            </Box>
-                        )}
                         <Grid
                             item
                             xs={12}
@@ -356,13 +334,43 @@ function CharityRegisterPage() {
                                 variant="h5"
                                 sx={{
                                     fontWeight: "bold",
-                                    marginBottom: 5,
+                                    marginBottom: 3,
                                     color: "primary.main",
                                 }}
                             >
                                 Đăng nhập
                             </Typography>
-
+                            {responseError && (
+                                <Box>
+                                    <Typography
+                                        variant="body2"
+                                        color="error"
+                                        align="center"
+                                        sx={{
+                                            marginBottom: "1",
+                                            fontWeight: "bold",
+                                            fontSize: "1rem",
+                                            lineHeight: "1.5",
+                                            wordWrap: "break-word",
+                                        }}
+                                    >
+                                        {responseError.title}
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        color="error"
+                                        align="center"
+                                        sx={{
+                                            marginBottom: "16px",
+                                            fontSize: "0.875rem",
+                                            lineHeight: "1.5",
+                                            wordWrap: "break-word",
+                                        }}
+                                    >
+                                        {responseError.detail}
+                                    </Typography>
+                                </Box>
+                            )}
                             <Box sx={{ marginBottom: 2, textAlign: "left" }}>
                                 <Typography variant="body1">
                                     Đăng nhập bằng Email
@@ -572,7 +580,6 @@ function CharityRegisterPage() {
         }
     };
 
-    // Submit button styled similarly to the provided register page
     return (
         <Box
             className="flex flex-col justify-center items-center pt-10"

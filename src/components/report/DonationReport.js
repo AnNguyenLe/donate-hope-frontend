@@ -151,9 +151,9 @@ const DonationReport = ({ campaignId }) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>
+                            <TableCell align="center">
                                     <TextField
-                                        label="Donator Name"
+                                        label="Người quyên góp"
                                         variant="outlined"
                                         size="small"
                                         name="donatorName"
@@ -162,9 +162,9 @@ const DonationReport = ({ campaignId }) => {
                                         fullWidth
                                     />
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <TextField
-                                        label="Date of Donation"
+                                        label="Ngày quyên góp"
                                         variant="outlined"
                                         size="small"
                                         name="date"
@@ -173,9 +173,9 @@ const DonationReport = ({ campaignId }) => {
                                         fullWidth
                                     />
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <TextField
-                                        label="Unit of Measurement"
+                                        label="Đơn vị tiền tệ"
                                         variant="outlined"
                                         size="small"
                                         name="unitOfMeasurement"
@@ -184,9 +184,9 @@ const DonationReport = ({ campaignId }) => {
                                         fullWidth
                                     />
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <TextField
-                                        label="Amount"
+                                        label="Số tiền quyên góp"
                                         variant="outlined"
                                         size="small"
                                         name="amount"
@@ -195,9 +195,9 @@ const DonationReport = ({ campaignId }) => {
                                         fullWidth
                                     />
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <TextField
-                                        label="Message"
+                                        label="Tin nhắn"
                                         variant="outlined"
                                         size="small"
                                         name="message"
@@ -227,22 +227,22 @@ const DonationReport = ({ campaignId }) => {
                                             },
                                         }}
                                     >
-                                        <TableCell>
+                                        <TableCell align="center">
                                             {donation.donatorName}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell align="center">
                                             {new Date(
                                                 donation.createdAt
                                             ).toLocaleDateString("en-GB")}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell align="center">
                                             {donation.unitOfMeasurement}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell align="center">
                                             {donation.amount.toLocaleString()}
                                         </TableCell>
-                                        <TableCell>
-                                            {donation.message || "N/A"}
+                                        <TableCell align="center">
+                                            {donation.message || "Không có lời nhắn"}
                                         </TableCell>
                                     </TableRow>
                                 ))}

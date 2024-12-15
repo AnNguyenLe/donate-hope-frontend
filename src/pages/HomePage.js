@@ -1,6 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {Box, Button, Card, CardContent, Grid2, Typography,} from "@mui/material";
-import {Link,} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Grid2,
+    Typography,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import CampaignCard from "../components/campaign/CampaignCard";
 
@@ -10,7 +17,9 @@ export default function HomePage() {
     useEffect(() => {
         const fetchCampaigns = async () => {
             try {
-                const response = await axiosInstance.get("/campaign/landingpage");
+                const response = await axiosInstance.get(
+                    "/campaign/landingpage"
+                );
                 setCampaigns(response.data);
             } catch (error) {
                 console.error("Error fetching campaigns:", error);
@@ -18,7 +27,6 @@ export default function HomePage() {
         };
         fetchCampaigns();
     }, []);
-
 
     return (
         <Box sx={{ bgcolor: "#f9f9f9", minHeight: "100vh" }}>
@@ -200,26 +208,10 @@ export default function HomePage() {
                 <Grid2 container spacing={3} justifyContent="center">
                     {campaigns.map((campaign) => (
                         <Grid2 item xs={12} sm={4} key={campaign.id}>
-                            <CampaignCard
-                                campaign={campaign}
-                            />
+                            <CampaignCard campaign={campaign} />
                         </Grid2>
                     ))}
                 </Grid2>
-            </Box>
-
-            {/* Footer */}
-            <Box
-                sx={{
-                    bgcolor: "#4CAF50",
-                    color: "white",
-                    py: 3,
-                    textAlign: "center",
-                }}
-            >
-                <Typography variant="body1">
-                    © 2024 Donate Hope. All Rights Reserved.
-                </Typography>
             </Box>
         </Box>
     );
