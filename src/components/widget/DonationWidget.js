@@ -12,7 +12,7 @@ const DonationWidget = ({ campaignId, unitOfMeasurement }) => {
 
     const handleDonation = () => {
         if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-            setError("Please enter a valid donation amount.");
+            setError("Vui lòng điền số tiền.");
             return;
         }
         setDonating(true);
