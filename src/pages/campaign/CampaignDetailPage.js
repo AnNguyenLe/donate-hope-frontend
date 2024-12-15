@@ -24,7 +24,6 @@ const CampaignDetailPage = () => {
                 : [];
 
             setProofUrls(urls);
-            console.log("Proof URLs:", urls);
         } catch (error) {
             console.error("Error fetching campaign details:", error);
         }

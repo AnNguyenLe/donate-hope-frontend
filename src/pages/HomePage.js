@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Box, Button, Card, CardContent, Grid2, Typography,} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link,} from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import CampaignCard from "../components/campaign/CampaignCard";
 
@@ -22,6 +22,7 @@ export default function HomePage() {
 
     return (
         <Box sx={{ bgcolor: "#f9f9f9", minHeight: "100vh" }}>
+            {/* Hero Section */}
             <Box
                 sx={{
                     display: "flex",
@@ -32,7 +33,7 @@ export default function HomePage() {
                     backgroundImage: 'url("hinh-thien-tai.jpg")',
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
+                    backgroundRepeat: "no-repeat", // Prevents repeating the image
                     color: "white",
                     py: 8,
                 }}

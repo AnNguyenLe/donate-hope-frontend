@@ -15,13 +15,18 @@ const appUserSlice = createSlice({
 			state.isLoading = false;
 			localStorage.removeItem("appUser");
 		},
+		resetError: (state) => {
+			state.error = null;
+		},
 	},
 	extraReducers(builder) {
 		builder.addCase(signInUser.pending, (state, action) => {
 			state.isLoading = true;
+			state.error = null;
 		});
 		builder.addCase(signInUser.fulfilled, (state, action) => {
 			state.isLoading = false;
+			state.error = null;
 			const data = {
 				...action.payload,
 				displayName: `${action.payload.firstName} ${action.payload.lastName}`,
@@ -31,7 +36,8 @@ const appUserSlice = createSlice({
 		});
 		builder.addCase(signInUser.rejected, (state, action) => {
 			state.isLoading = false;
-			state.error = action.error;
+			state.data = null;
+			state.error = action.payload;
 		});
 
 		builder.addCase(signUpUser.pending, (state, action) => {
@@ -48,7 +54,7 @@ const appUserSlice = createSlice({
 		});
 		builder.addCase(signUpUser.rejected, (state, action) => {
 			state.isLoading = false;
-			state.error = action.error;
+			state.error = action.payload;
 		});
 
 		builder.addCase(signUpCharity.pending, (state, action) => {
@@ -65,10 +71,11 @@ const appUserSlice = createSlice({
 		});
 		builder.addCase(signUpCharity.rejected, (state, action) => {
 			state.isLoading = false;
-			state.error = action.error;
+			state.data = null;
+			state.error = action.payload;
 		});
 	},
 });
 
-export const { signOutUser } = appUserSlice.actions;
+export const { signOutUser, resetError } = appUserSlice.actions;
 export const appUserReducer = appUserSlice.reducer;
