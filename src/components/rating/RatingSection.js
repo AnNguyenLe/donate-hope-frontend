@@ -103,7 +103,7 @@ const RatingSection = ({ campaignId }) => {
                     aria-label="Rate this campaign"
                 />
                 <TextField
-                    label="Your Feedback"
+                    label="Phản hồi của bạn"
                     multiline
                     rows={2}
                     value={feedback}
