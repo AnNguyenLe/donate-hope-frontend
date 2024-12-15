@@ -1,43 +1,27 @@
-import React, { useEffect, useState } from "react";
-import {
-    Box,
-    Typography,
-    Button,
-    Grid2,
-    Card,
-    CardContent,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Box, Button, Card, CardContent, Grid2, Typography,} from "@mui/material";
+import {Link} from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import CampaignCard from "../components/campaign/CampaignCard";
-import { useSelector } from "react-redux";
 
 export default function HomePage() {
     const [campaigns, setCampaigns] = useState([]);
-    const navigate = useNavigate();
-
-    const token = useSelector((state) => state.appUser?.data?.accessToken);
 
     useEffect(() => {
-        if (token) {
-            const fetchCampaigns = async () => {
-                try {
-                    const response = await axiosInstance.get("/campaign");
-                    setCampaigns(response.data.slice(0, 3));
-                } catch (error) {
-                    console.error("Error fetching campaigns:", error);
-                }
-            };
+        const fetchCampaigns = async () => {
+            try {
+                const response = await axiosInstance.get("/campaign/landingpage");
+                setCampaigns(response.data);
+            } catch (error) {
+                console.error("Error fetching campaigns:", error);
+            }
+        };
+        fetchCampaigns();
+    }, []);
 
-            fetchCampaigns();
-        } else {
-            console.log("Token is not available yet.");
-        }
-    }, [token]);
 
     return (
         <Box sx={{ bgcolor: "#f9f9f9", minHeight: "100vh" }}>
-            {/* Hero Section */}
             <Box
                 sx={{
                     display: "flex",
@@ -48,7 +32,7 @@ export default function HomePage() {
                     backgroundImage: 'url("hinh-thien-tai.jpg")',
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat", // Prevents repeating the image
+                    backgroundRepeat: "no-repeat",
                     color: "white",
                     py: 8,
                 }}
@@ -217,9 +201,6 @@ export default function HomePage() {
                         <Grid2 item xs={12} sm={4} key={campaign.id}>
                             <CampaignCard
                                 campaign={campaign}
-                                goToDetailPage={() =>
-                                    navigate(`/campaign/${campaign.id}`)
-                                }
                             />
                         </Grid2>
                     ))}
