@@ -7,39 +7,41 @@ import { resetError, signUpUser } from "../../store";
 import { useEffect, useState } from "react";
 
 function RegisterPage() {
-	const {
-		register,
-		handleSubmit,
-		control,
-		getValues,
-		formState: { errors },
-	} = useForm();
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        control,
+        getValues,
+        formState: { errors },
+    } = useForm();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-	const accessToken = useSelector((state) => state.appUser?.data?.accessToken);
+    const accessToken = useSelector(
+        (state) => state.appUser?.data?.accessToken
+    );
 
-	useEffect(() => {
-		if (accessToken) {
-			navigate("/");
-		}
-	}, [accessToken, navigate]);
+    useEffect(() => {
+        if (accessToken) {
+            navigate("/");
+        }
+    }, [accessToken, navigate]);
 
-	const backendError = useSelector((state) => state.appUser?.error);
+    const backendError = useSelector((state) => state.appUser?.error);
 
-	const [responseError, setResponseError] = useState(null);
+    const [responseError, setResponseError] = useState(null);
 
-	useEffect(() => {
-		if (backendError) {
-			setResponseError(backendError);
-		} else {
-			setResponseError(null);
-		}
-	}, [backendError]);
+    useEffect(() => {
+        if (backendError) {
+            setResponseError(backendError);
+        } else {
+            setResponseError(null);
+        }
+    }, [backendError]);
 
-	useEffect(() => {
-		dispatch(resetError());
-	}, [dispatch]);
+    useEffect(() => {
+        dispatch(resetError());
+    }, [dispatch]);
 
     const onSubmit = (formData) => {
         console.log(formData);
@@ -91,24 +93,55 @@ function RegisterPage() {
                     <Typography variant="h4" fontWeight="bold" mb={4}>
                         Đăng ký tài khoản
                     </Typography>
+                    {responseError && (
+                        <Box>
+                            <Box
+                                sx={{
+                                    color: "red",
+                                    textAlign: "center",
+                                    marginBottom: "16px",
+                                }}
+                            >
+                                {responseError.title}
+                            </Box>
+                            <Box
+                                sx={{
+                                    color: "red",
+                                    textAlign: "center",
+                                    marginBottom: "16px",
+                                }}
+                            >
+                                {responseError.detail}
+                            </Box>
+                        </Box>
+                    )}
+
                     <Box display="flex" gap={2} mb={2}>
                         <TextField
                             label="Tên"
                             fullWidth
-                            {...register("firstName")}
+                            {...register("firstName", {
+                                required: "Xin vui lòng nhập tên",
+                            })}
                             variant="filled"
                             InputProps={{
                                 disableUnderline: true,
                             }}
+                            error={!!errors.firstName}
+                            helperText={errors.firstName?.message}
                         />
                         <TextField
                             label="Họ và tên lót"
                             fullWidth
-                            {...register("lastName")}
+                            {...register("lastName", {
+                                required: "Xin vui lòng nhập họ và tên lót",
+                            })}
                             variant="filled"
                             InputProps={{
                                 disableUnderline: true,
                             }}
+                            error={!!errors.lastName}
+                            helperText={errors.lastName?.message}
                         />
                     </Box>
                     <Box
@@ -137,7 +170,7 @@ function RegisterPage() {
                         <DatePickerField
                             control={control}
                             name="dateOfBirth"
-                            label="Pick a Date of Birth"
+                            label="Chọn ngày sinh"
                             rules={{ required: "Xin vui lòng nhập ngày sinh" }}
                             errors={errors}
                         />
@@ -149,10 +182,14 @@ function RegisterPage() {
                             fullWidth
                             variant="filled"
                             type="email"
-                            {...register("email")}
+                            {...register("email", {
+                                required: "Xin vui lòng nhập Email",
+                            })}
                             InputProps={{
                                 disableUnderline: true,
                             }}
+                            error={!!errors.email}
+                            helperText={errors.email?.message}
                         />
                     </Box>
 
@@ -162,10 +199,23 @@ function RegisterPage() {
                             fullWidth
                             variant="filled"
                             type="password"
-                            {...register("password")}
+                            {...register("password", {
+                                required: "Xin vui lòng nhập mật khẩu",
+                                minLength: {
+                                    value: 8,
+                                    message: "Mật khẩu phải có ít nhất 8 ký tự",
+                                },
+                                pattern: {
+                                    value: /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])/,
+                                    message:
+                                        "Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt",
+                                },
+                            })}
                             InputProps={{
                                 disableUnderline: true,
                             }}
+                            error={!!errors.password}
+                            helperText={errors.password?.message}
                         />
                     </Box>
                     <Box display="flex" mb={2}>
@@ -174,10 +224,17 @@ function RegisterPage() {
                             fullWidth
                             variant="filled"
                             type="password"
-                            {...register("confirmPassword")}
+                            {...register("confirmPassword", {
+                                required: "Xin vui lòng nhập lại mật khẩu",
+                                validate: (value) =>
+                                    value === getValues("password") ||
+                                    "Mật khẩu không khớp",
+                            })}
                             InputProps={{
                                 disableUnderline: true,
                             }}
+                            error={!!errors.confirmPassword}
+                            helperText={errors.confirmPassword?.message}
                         />
                     </Box>
                     <Button
