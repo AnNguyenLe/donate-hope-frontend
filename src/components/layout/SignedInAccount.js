@@ -19,11 +19,15 @@ export default function SignedInAccount({ appUser }) {
 		handleClose();
 	};
 
-	const onSignOut = () => {
-		axiosInstance.get("/account/logout");
-		localStorage.removeItem("appUser");
-		dispatch(signOutUser());
-		window.location.reload();
+	const onSignOut = async () => {
+		try {
+			await axiosInstance.get("/account/logout");
+			localStorage.removeItem("appUser");
+			dispatch(signOutUser());
+			window.location.reload();
+		} catch (error) {
+			console.error("Logout error:", error);
+		}
 	};
 
 	return (
