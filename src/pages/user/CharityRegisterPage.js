@@ -70,7 +70,13 @@ function CharityRegisterPage() {
         switch (activeStep) {
             case 0:
                 return (
-                    <Box className="flex flex-col justify-between">
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
                         <Grid
                             item
                             xs={12}
@@ -84,8 +90,8 @@ function CharityRegisterPage() {
                         >
                             <Box
                                 sx={{
-                                    width: "90%",
-                                    maxWidth: "500px",
+                                    width: "100%",
+                                    maxWidth: "700px",
                                     textAlign: "center",
                                 }}
                             >
@@ -210,7 +216,13 @@ function CharityRegisterPage() {
                 );
             case 1:
                 return (
-                    <Box className="flex flex-col justify-between">
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
                         <Grid
                             item
                             xs={12}
@@ -317,12 +329,18 @@ function CharityRegisterPage() {
                 );
             case 2:
                 return (
-                    <Box className="flex flex-col justify-between">
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
                         <Box
                             sx={{
                                 width: "100%",
                                 maxWidth: 400,
-                                margin: "5rem auto",
+                                margin: "1rem auto",
                                 padding: 4,
                                 background: "white",
                                 borderRadius: "1rem",
@@ -581,93 +599,107 @@ function CharityRegisterPage() {
     };
 
     return (
-        <Box
-            className="flex flex-col justify-center items-center pt-10"
+        <Grid
+            container
             sx={{
-                fontFamily: "Roboto, monospace, sans-serif",
-                fontWeight: 700,
-                letterSpacing: ".1rem",
-                color: "inherit",
+                background: "white",
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
             }}
         >
-            <Typography
+            <Box
                 sx={{
-                    color: "primary.main",
-                    fontWeight: "bold",
-                    fontSize: "2rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
                 }}
-                marginBottom={3}
             >
-                Đăng ký tổ chức từ thiện
-            </Typography>
-            <Stepper
-                activeStep={activeStep}
-                alternativeLabel
-                sx={{ width: "80%", marginTop: 2 }}
-            >
-                {steps.map((label, index) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
+                <Typography
+                    sx={{
+                        color: "primary.main",
+                        fontWeight: "bold",
+                        fontSize: "2rem",
+                        marginTop: 3,
+                        marginBottom: 3,
+                    }}
+                >
+                    Đăng ký tổ chức từ thiện
+                </Typography>
+                <Stepper
+                    activeStep={activeStep}
+                    alternativeLabel
+                    sx={{ width: "80%", marginTop: 2 }}
+                >
+                    {steps.map((label, index) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
 
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                style={{ width: "50%" }}
-                className="pt-8"
-            >
-                {renderStepContent()}
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    style={{ width: "50%" }}
+                    className="pt-3"
+                >
+                    {renderStepContent()}
 
-                <Box className="flex justify-between mt-12">
-                    {activeStep !== 2 && (
-                        <Button
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            variant="outlined"
-                            color="primary"
-                            sx={{
-                                width: "30%",
+                    <Box className="flex justify-between mb-12">
+                        {activeStep !== 2 && (
+                            <Button
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                variant="outlined"
+                                color="primary"
+                                sx={{
+                                    width: "30%",
 
-                                padding: "12px",
-                                fontWeight: "bold",
-                                borderRadius: "1rem",
-                                color: "primary.main",
-                                "&:hover": {
-                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                                },
-                            }}
-                        >
-                            Quay lại
-                        </Button>
-                    )}
-                    {activeStep !== 2 && (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleNext}
-                            sx={{
-                                width: "30%",
-                                padding: "12px",
-                                fontWeight: "bold",
-                                borderRadius: "1rem",
-                                backgroundColor: "primary.main",
-                                color: "white",
-                                "&:hover": {
-                                    backgroundColor: "primary.dark",
-                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                                },
-                            }}
-                            disabled={
-                                !isValid || Object.keys(errors).length > 0
-                            }
-                        >
-                            Tiếp theo
-                        </Button>
-                    )}
-                </Box>
-            </form>
-        </Box>
+                                    padding: "12px",
+                                    fontWeight: "bold",
+                                    borderRadius: "1rem",
+                                    color: "primary.main",
+                                    "&:hover": {
+                                        boxShadow:
+                                            "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                    },
+                                }}
+                            >
+                                Quay lại
+                            </Button>
+                        )}
+                        {activeStep !== 2 && (
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleNext}
+                                sx={{
+                                    width: "30%",
+                                    padding: "12px",
+                                    fontWeight: "bold",
+                                    borderRadius: "1rem",
+                                    backgroundColor: "primary.main",
+                                    color: "white",
+                                    "&:hover": {
+                                        backgroundColor: "primary.dark",
+                                        boxShadow:
+                                            "0 4px 8px rgba(0, 0, 0, 0.2)",
+                                    },
+                                }}
+                                disabled={
+                                    !isValid || Object.keys(errors).length > 0
+                                }
+                            >
+                                Tiếp theo
+                            </Button>
+                        )}
+                    </Box>
+                </form>
+            </Box>
+        </Grid>
     );
 }
 
