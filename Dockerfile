@@ -2,8 +2,8 @@ FROM node:23 AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
-ARG API_BASE_URL=https://localhost:7066
-ENV API_BASE_URL=$API_BASE_URL
+ARG API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$API_BASE_URL
 COPY . .
 RUN npm run build
 
